@@ -28,88 +28,103 @@ setInterval(() => {
     currentIndex = (currentIndex + 1) % texts.length
 }, 3000)
 
-// Стековая карусель с карточками
+// Карусель с карточками и сменой статистики
 document.addEventListener('DOMContentLoaded', function () {
     const cardsContainer = document.querySelector('.cards-container')
-    if (!cardsContainer) return // Проверка наличия контейнера карточек на странице
+    if (!cardsContainer) return
 
     const cards = document.querySelectorAll('.card-item')
+    const statGroups = document.querySelectorAll('.stat-group')
+    const quoteItems = document.querySelectorAll('.quote-item')
     const prevButton = document.querySelector('.cards-prev')
     const nextButton = document.querySelector('.cards-next')
 
     const totalCards = cards.length
+    let currentCard = 1
     let autoplayInterval
-    let isAnimating = false // Флаг для предотвращения множественных кликов во время анимации
+    let isAnimating = false
 
-    // Инициализация начального положения карточек
-    function initCards() {
-        cards.forEach((card, index) => {
-            card.setAttribute('data-position', index)
+    // Обновление активных элементов (карточка, статистика, цитата)
+    function updateActiveElements() {
+        // Обновление статистики
+        statGroups.forEach((group) => {
+            if (parseInt(group.dataset.card) === currentCard) {
+                group.classList.add('active')
+            } else {
+                group.classList.remove('active')
+            }
         })
-        startAutoplay()
+
+        // Обновление цитат
+        quoteItems.forEach((quote) => {
+            if (parseInt(quote.dataset.card) === currentCard) {
+                quote.classList.add('active')
+            } else {
+                quote.classList.remove('active')
+            }
+        })
     }
 
-    // Сдвиг карточек вперед (следующая карточка становится активной)
-    function shiftForward() {
+    // Переход к следующей карточке
+    function nextCard() {
         if (isAnimating) return
         isAnimating = true
 
-        // Получаем текущие позиции
-        cards.forEach((card) => {
-            let position = parseInt(card.getAttribute('data-position'))
-            // Перемещаем каждую карточку на одну позицию назад
-            position = (position - 1 + totalCards) % totalCards
+        // Получаем АКТУАЛЬНЫЙ первый элемент
+        const firstCard = cardsContainer.firstElementChild
+        cardsContainer.appendChild(firstCard)
 
-            // Применяем новую позицию с анимацией
-            card.setAttribute('data-position', position)
-        })
+        // Обновить текущую карточку
+        currentCard = (currentCard % totalCards) + 1
 
-        // Сбрасываем флаг анимации после завершения перехода
+        // Обновить активные элементы
+        updateActiveElements()
+
+        // Сброс флага анимации
         setTimeout(() => {
             isAnimating = false
-        }, 500) // Должно соответствовать duration анимации
+        }, 500)
     }
 
-    // Сдвиг карточек назад (предыдущая карточка становится активной)
-    function shiftBackward() {
+    // Переход к предыдущей карточке
+    function prevCard() {
         if (isAnimating) return
         isAnimating = true
 
-        // Получаем текущие позиции
-        cards.forEach((card) => {
-            let position = parseInt(card.getAttribute('data-position'))
-            // Перемещаем каждую карточку на одну позицию вперед
-            position = (position + 1) % totalCards
+        // Получаем АКТУАЛЬНЫЙ последний элемент
+        const lastCard = cardsContainer.lastElementChild
+        cardsContainer.insertBefore(lastCard, cardsContainer.firstElementChild)
 
-            // Применяем новую позицию с анимацией
-            card.setAttribute('data-position', position)
-        })
+        // Обновить текущую карточку
+        currentCard = ((currentCard - 2 + totalCards) % totalCards) + 1
 
-        // Сбрасываем флаг анимации после завершения перехода
+        // Обновить активные элементы
+        updateActiveElements()
+
+        // Сброс флага анимации
         setTimeout(() => {
             isAnimating = false
-        }, 500) // Должно соответствовать duration анимации
+        }, 500)
     }
 
-    // Запуск автоматической прокрутки
+    // Автоматическая прокрутка
     function startAutoplay() {
         stopAutoplay()
         autoplayInterval = setInterval(() => {
-            shiftForward()
-        }, 5000) // Переход каждые 5 секунд
+            nextCard()
+        }, 5000)
     }
 
-    // Остановка автоматической прокрутки
     function stopAutoplay() {
         if (autoplayInterval) {
             clearInterval(autoplayInterval)
         }
     }
 
-    // Обработчики событий для кнопок
+    // Обработчики событий
     if (prevButton) {
         prevButton.addEventListener('click', () => {
-            shiftBackward()
+            prevCard()
             stopAutoplay()
             startAutoplay()
         })
@@ -117,13 +132,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            shiftForward()
+            nextCard()
             stopAutoplay()
             startAutoplay()
         })
     }
 
-    // Обработка свайпов для мобильных устройств
+    // Остановка автопрокрутки при наведении
+    cardsContainer.addEventListener('mouseenter', () => {
+        stopAutoplay()
+    })
+
+    // Возобновление автопрокрутки при уходе мыши
+    cardsContainer.addEventListener('mouseleave', () => {
+        startAutoplay()
+    })
+
+    // Свайпы на мобильных устройствах
     let touchStartX = 0
     let touchEndX = 0
 
@@ -140,33 +165,21 @@ document.addEventListener('DOMContentLoaded', function () {
         'touchend',
         (e) => {
             touchEndX = e.changedTouches[0].screenX
-            handleSwipe()
+
+            const swipeThreshold = 50
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Свайп влево - следующая карточка
+                nextCard()
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Свайп вправо - предыдущая карточка
+                prevCard()
+            }
+
             startAutoplay()
         },
         { passive: true }
     )
 
-    function handleSwipe() {
-        const swipeThreshold = 50
-        if (touchEndX < touchStartX - swipeThreshold) {
-            // Свайп влево - следующая карточка
-            shiftForward()
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            // Свайп вправо - предыдущая карточка
-            shiftBackward()
-        }
-    }
-
-    // Остановка автопрокрутки при наведении на карточки
-    cardsContainer.addEventListener('mouseenter', () => {
-        stopAutoplay()
-    })
-
-    // Возобновление автопрокрутки при уходе мыши с карточек
-    cardsContainer.addEventListener('mouseleave', () => {
-        startAutoplay()
-    })
-
     // Инициализация
-    initCards()
+    startAutoplay()
 })

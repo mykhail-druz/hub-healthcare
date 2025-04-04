@@ -17,9 +17,9 @@
     }
 
     .header {
-        @apply bg-[#F9F9F9] h-[70px] flex items-center;
-        @apply md:h-[100px];
-        @apply lg:h-[120px];
+        @apply bg-[#F9F9F9] h-[70px] flex items-center sticky top-0 z-[1000];
+        @apply md:h-[80px];
+        @apply lg:h-[100px];
     }
 
     .header-container {
@@ -30,10 +30,10 @@
     }
 
     .header-logo {
-        @apply w-[180px] h-[45px];
-        @apply md:w-[200px] md:h-[50px];
-        @apply lg:w-[220px] lg:h-[55px];
-        @apply 2xl:w-[240px] 2xl:h-[60px];
+        @apply w-[170px] h-[35px];
+        @apply md:w-[190px] md:h-[40px];
+        @apply lg:w-[210px] lg:h-[45px];
+        @apply 2xl:w-[230px] 2xl:h-[50px];
     }
 
     .nav-link {
@@ -202,43 +202,125 @@
         @apply flex flex-col gap-1 mb-5;
     }
 
+    .stat-item-title {
+        @apply text-accent text-[60px] md:text-[70px] lg:text-[80px] font-bold leading-[142%] tracking-[-7%];
+    }
+
+    .stat-item-description {
+        @apply text-secondary text-[18px] md:text-[22px] lg:text-[26px] font-medium leading-[142%] tracking-[-7%];
+    }
+
     .cards-container {
-        @apply relative overflow-visible;
-        width: 500px;
+        @apply relative overflow-visible mr-auto;
+        width: 400px;
         max-width: 100%;
+        height: 533px;
     }
 
+    /* Стили для карточек */
     .card-item {
-        @apply transition-all duration-500 ease-in-out;
-        width: 500px;
-        max-width: 100%;
+        @apply absolute transition-all duration-500 ease-in-out rounded-[24px] overflow-hidden border-[9px] border-primary;
+        width: 400px;
+        height: 533px;
+        transform-origin: center center;
     }
 
-    /* Стили для положения каждой карточки в стеке */
-    .card-item[data-position='0'] {
+    /* Первая карточка (активная) */
+    .card-item:nth-child(1) {
         transform: translateX(0);
         z-index: 40;
-        opacity: 1;
+        scale: 1;
     }
 
-    .card-item[data-position='1'] {
-        transform: translateX(20px);
+    /* Вторая карточка */
+    .card-item:nth-child(2) {
+        transform: translateX(80px);
         z-index: 30;
-        opacity: 0.9;
+        scale: 0.9;
     }
 
-    .card-item[data-position='2'] {
-        transform: translateX(40px);
+    /* Третья карточка */
+    .card-item:nth-child(3) {
+        transform: translateX(160px);
         z-index: 20;
-        opacity: 0.8;
+        scale: 0.8;
     }
 
-    .card-item[data-position='3'] {
-        transform: translateX(60px);
+    /* Четвертая карточка */
+    .card-item:nth-child(4) {
+        transform: translateX(250px);
         z-index: 10;
-        opacity: 0.7;
+        scale: 0.7;
+    }
+
+    /*!* Пятая карточка *!*/
+    .card-item:nth-child(5) {
+        @apply hidden;
+    }
+
+    /* Карточка с плавным градиентом */
+    .card-content {
+        @apply relative h-full w-full;
+    }
+
+    .card-content img {
+        @apply w-full h-full object-cover;
+    }
+
+    .card-overlay {
+        @apply absolute bottom-0 left-0 w-full p-5 backdrop-blur-[90.4px];
+        background: linear-gradient(
+            to top,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0.1) 60%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        padding-top: 50px;
+    }
+
+    .card-overlay p:first-child {
+        @apply text-primary text-[28px] md:text-[30px] font-medium leading-[98%] tracking-[-7%];
+    }
+
+    .card-overlay p:nth-child(2) {
+        @apply text-primary text-[28px] md:text-[30px] font-medium leading-[98%] tracking-[-7%];
+    }
+
+    .card-overlay a {
+        @apply text-primary text-[16px] md:text-[18px] inline-block mt-2;
+        text-decoration: none;
+    }
+
+    /* Анимация для карточек */
+    .slide-transition {
+        @apply transition-all duration-500 ease-in-out;
+    }
+
+    /* Стили для статистики */
+    .stat-group {
+        @apply hidden;
+    }
+
+    .stat-group.active {
+        @apply flex flex-col gap-6;
+    }
+
+    /* Стили для цитат */
+    .quote-container {
+        @apply mt-6 flex items-start gap-3;
+    }
+
+    .quote-item {
+        @apply hidden;
+    }
+
+    .quote-item.active {
+        @apply block;
     }
 }
 
 @layer utilities {
+    .text-shadow {
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
 }
