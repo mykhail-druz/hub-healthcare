@@ -16,6 +16,18 @@
         @apply 2xl:px-[100px];
     }
 
+    .section-title {
+        @apply text-secondary text-[52px] font-medium leading-[96%] tracking-[-7%];
+    }
+
+    .section-subtitle {
+        @apply text-secondary text-[32px] font-medium leading-[0] tracking-[-7%];
+    }
+
+    .section-description {
+        @apply text-[#6B6F7A] text-[24px];
+    }
+
     .header {
         @apply bg-[#F9F9F9] h-[70px] flex items-center sticky top-0 z-[1000];
         @apply md:h-[80px];
@@ -30,16 +42,16 @@
     }
 
     .header-logo {
-        @apply w-[170px] h-[35px];
-        @apply md:w-[190px] md:h-[40px];
-        @apply lg:w-[210px] lg:h-[45px];
-        @apply 2xl:w-[230px] 2xl:h-[50px];
+        @apply w-[160px] h-[35px];
+        @apply md:w-[170px] md:h-[40px];
+        @apply lg:w-[180px] lg:h-[45px];
+        @apply 2xl:w-[200px] 2xl:h-[50px];
     }
 
     .nav-link {
         @apply text-[#929292] text-[16px] font-medium leading-[100%] hover:text-accent transition duration-200;
         @apply md:text-[16px];
-        @apply lg:text-[28px];
+        @apply lg:text-[18px];
         @apply 2xl:text-[20px];
     }
 
@@ -58,7 +70,7 @@
     .header-btn {
         @apply relative bg-secondary rounded-full px-[16px] py-[5px] text-primary font-normal text-[16px] leading-[100%] overflow-hidden z-20;
         @apply md:px-[24px] md:py-[6px] md:text-[16px];
-        @apply lg:px-[32px] lg:py-[8px] lg:text-[28px];
+        @apply lg:px-[32px] lg:py-[8px] lg:text-[18px];
         @apply 2xl:px-[28px] 2xl:text-[20px];
     }
 
@@ -234,6 +246,7 @@
 
     /* Вторая карточка */
     .card-item:nth-child(2) {
+        @apply hidden md:block;
         transform: translateX(80px);
         z-index: 30;
         scale: 0.9;
@@ -241,6 +254,7 @@
 
     /* Третья карточка */
     .card-item:nth-child(3) {
+        @apply hidden md:block;
         transform: translateX(160px);
         z-index: 20;
         scale: 0.8;
@@ -248,6 +262,7 @@
 
     /* Четвертая карточка */
     .card-item:nth-child(4) {
+        @apply hidden md:block;
         transform: translateX(250px);
         z-index: 10;
         scale: 0.7;
@@ -307,7 +322,7 @@
 
     /* Стили для цитат */
     .quote-container {
-        @apply mt-6 flex items-start gap-3;
+        @apply relative mt-12 md:mt-6 flex items-start gap-3 z-[100];
     }
 
     .quote-item {
@@ -316,6 +331,213 @@
 
     .quote-item.active {
         @apply block;
+    }
+
+    /* Основной контейнер карусели */
+    .workflow-carousel {
+        @apply w-full max-w-[1280px] relative overflow-hidden rounded-[53px];
+        height: 550px; /* Фиксированная высота для всей карусели */
+    }
+
+    /* Контейнер для слайдов */
+    .workflow-slides-container {
+        @apply w-full h-full;
+    }
+
+    /* Отдельный слайд */
+    .workflow-slide {
+        @apply w-full h-full flex-shrink-0 rounded-[53px] bg-[#1E2A49] text-white overflow-hidden relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .workflow-slide.active {
+        opacity: 1;
+        z-index: 10;
+    }
+
+    /* Внутренний контейнер слайда */
+    .slide-inner {
+        @apply flex flex-col md:flex-row h-full w-full relative z-10 bg-black/75;
+    }
+
+    /* Левая часть слайда (контент) */
+    .slide-content {
+        @apply p-8 md:p-12 md:w-[55%] flex flex-col justify-between;
+    }
+
+    /* Заголовок слайда */
+    .slide-title {
+        @apply text-white text-[36px] md:text-[42px] lg:text-[48px] font-medium mb-6 leading-tight;
+    }
+
+    /* Описание слайда */
+    .slide-description {
+        @apply text-white/90 text-[16px] md:text-[18px] max-w-[500px] mb-8 leading-relaxed;
+    }
+
+    /* Блок с цитатой */
+    .slide-quote {
+        @apply relative mb-8;
+    }
+
+    /* Иконка цитаты */
+    .quote-image {
+        @apply scale-50;
+    }
+
+    /* Текст цитаты */
+    .quote-text {
+        @apply text-white/90 text-[16px] italic mb-4 max-w-[450px];
+    }
+
+    /* Автор цитаты */
+    .quote-author {
+        @apply flex items-center gap-3;
+    }
+
+    /* Аватар автора */
+    .author-avatar {
+        @apply w-12 h-12 rounded-full border-2 border-accent/50 overflow-hidden;
+    }
+
+    .author-avatar img {
+        @apply w-full h-full object-cover;
+    }
+
+    /* Информация об авторе */
+    .author-info {
+        @apply text-white/80 text-[14px];
+    }
+
+    .slide-metrics {
+        @apply hidden  md:w-[45%] md:flex flex-col items-center justify-center p-8 md:p-0 md:pr-12;
+    }
+
+    /* Отдельная метрика */
+    .metric-item {
+        @apply flex items-center mb-10 last:mb-0;
+    }
+
+    /* Вертикальная линия для метрик */
+    .metric-line {
+        @apply w-2 h-32 bg-accent mr-4 flex-shrink-0;
+    }
+
+    /* Контейнер для значения и описания метрики */
+    .metric-content {
+        @apply flex flex-col space-y-4;
+    }
+
+    /* Значение метрики */
+    .metric-value {
+        @apply text-primary text-[48px] md:text-[56px] lg:text-[64px] font-bold leading-[98%] tracking-[-7%];
+    }
+
+    /* Описание метрики */
+    .metric-description {
+        @apply text-primary text-[14px] md:text-[16px] max-w-[200px] leading-[94%];
+    }
+
+    /* Навигация карусели - теперь внутри контейнера */
+    .workflow-navigation {
+        @apply flex items-center justify-center absolute bottom-5 left-0 right-0 z-20;
+    }
+
+    /* Точки навигации */
+    .carousel-dots {
+        @apply flex gap-2;
+    }
+
+    /* Отдельная точка */
+    .carousel-dot {
+        @apply w-3 h-3 rounded-full bg-[#D9D9D9] transition-all duration-300 cursor-pointer;
+    }
+
+    /* Активная точка */
+    .carousel-dot.active {
+        @apply bg-accent w-8;
+    }
+
+    /* Вертикальная линия для метрик */
+    .metric-line {
+        @apply w-2 h-32 bg-accent mr-4;
+    }
+
+    /*<----->*/
+
+    /* Контейнер шага с кругом и карточкой */
+    .step-container {
+        @apply flex items-start gap-5;
+    }
+
+    /* Круг с номером шага */
+    .step-circle {
+        @apply w-[90px] h-[90px] bg-accent rounded-full flex items-center justify-center flex-shrink-0;
+        box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .step-circle span {
+        @apply text-white text-[30px] font-bold;
+    }
+
+    /* Карточка со всем содержимым шага */
+    .step-card {
+        @apply flex-row bg-accent rounded-2xl p-6 text-white;
+        min-height: 90px;
+        transition: all 0.3s ease;
+    }
+
+    /* Заголовок шага */
+    .step-title {
+        @apply text-white text-[22px] md:text-[26px] font-medium;
+    }
+
+    /* Иконка информации */
+    .info-icon {
+        @apply w-6 h-6 rounded-full bg-white text-accent flex items-center justify-center text-sm font-semibold;
+    }
+
+    /* Описание шага - изначально скрыто */
+    .step-description {
+        @apply mt-4 text-[18px] text-white/90 max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out;
+        transform: translateY(-10px);
+    }
+
+    /* При наведении показываем описание */
+    .step-container:hover .step-description {
+        @apply max-h-[100px] opacity-100;
+        transform: translateY(0);
+    }
+
+    /* При наведении добавляем эффект круга */
+    .step-container:hover .step-circle {
+        box-shadow:
+            0 0 0 6px rgba(52, 211, 153, 0.3),
+            0 0 20px rgba(52, 211, 153, 0.4);
+    }
+
+    /* Анимация пульсации */
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(52, 211, 153, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+        }
+    }
+
+    .step-circle.pulse {
+        animation: pulse 2s infinite;
     }
 }
 
