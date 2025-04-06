@@ -211,7 +211,7 @@
     }
 
     .stat-item {
-        @apply flex flex-col gap-1 mb-5;
+        @apply flex flex-col gap-1 mb-2;
     }
 
     .stat-item-title {
@@ -219,7 +219,7 @@
     }
 
     .stat-item-description {
-        @apply text-secondary text-[18px] md:text-[22px] lg:text-[26px] font-medium leading-[142%] tracking-[-7%];
+        @apply text-secondary text-[18px] md:text-[22px] lg:text-[32px] font-medium leading-[142%] tracking-[-7%];
     }
 
     .cards-container {
@@ -388,7 +388,7 @@
 
     /* Иконка цитаты */
     .quote-image {
-        @apply scale-50;
+        @apply scale-50 mr-auto;
     }
 
     /* Текст цитаты */
@@ -473,76 +473,115 @@
 
     /* Контейнер шага с кругом и карточкой */
     .step-container {
-        @apply flex items-start gap-5;
+        @apply flex items-start gap-5 mb-8;
     }
 
-    /* Круг с номером шага */
+    /* Стилизация круга с номером шага */
     .step-circle {
-        @apply w-[90px] h-[90px] bg-accent rounded-full flex items-center justify-center flex-shrink-0;
-        box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.2);
+        @apply relative w-[80px] h-[80px] flex items-center justify-center flex-shrink-0;
         transition: all 0.3s ease;
     }
 
-    .step-circle span {
-        @apply text-white text-[30px] font-bold;
+    /* Внутренний зеленый круг */
+    .step-circle::before {
+        content: '';
+        @apply absolute w-[64px] h-[64px] bg-accent rounded-full;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
     }
 
-    /* Карточка со всем содержимым шага */
+    /* Средний белый круг */
+    .step-circle::after {
+        content: '';
+        @apply absolute w-[75px] h-[75px] bg-white rounded-full;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+    }
+
+    /* Внешний зеленый ободок (изначально тонкий) */
+    .step-circle-border {
+        @apply absolute bg-accent w-[80px] h-[80px] rounded-full;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        transition: all 0.3s ease;
+    }
+
+    /* Цифра внутри круга */
+    .step-circle span {
+        @apply text-white text-[28px] font-medium relative leading-[98%];
+        z-index: 2;
+    }
+
+    /* Увеличение внешнего зеленого ободка при наведении */
+    .step-container:hover .step-circle-border {
+        @apply bg-accent w-[90px] h-[90px];
+    }
+
+    /* Стиль для карточки */
     .step-card {
-        @apply flex-row bg-accent rounded-2xl p-6 text-white;
+        @apply flex-grow bg-accent rounded-2xl p-6 text-white;
         min-height: 90px;
         transition: all 0.3s ease;
     }
 
-    /* Заголовок шага */
+    /* Блок заголовка с гибкой разметкой */
+    .step-title-block {
+        @apply flex flex-row space-x-[12px] items-center w-full;
+    }
+
+    /* Стиль для заголовка */
     .step-title {
         @apply text-white text-[22px] md:text-[26px] font-medium;
     }
 
-    /* Иконка информации */
+    /* Стиль для иконки информации */
     .info-icon {
-        @apply w-6 h-6 rounded-full bg-white text-accent flex items-center justify-center text-sm font-semibold;
+        @apply w-6 h-6 opacity-[68%];
     }
 
-    /* Описание шага - изначально скрыто */
     .step-description {
-        @apply mt-4 text-[18px] text-white/90 max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out;
+        @apply mt-4 text-[18px] text-primary leading-[115%] font-medium;
+    }
+
+    .step-description {
+        @apply mt-4 text-[18px] text-primary max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out;
         transform: translateY(-10px);
     }
 
-    /* При наведении показываем описание */
     .step-container:hover .step-description {
         @apply max-h-[100px] opacity-100;
         transform: translateY(0);
     }
 
-    /* При наведении добавляем эффект круга */
-    .step-container:hover .step-circle {
-        box-shadow:
-            0 0 0 6px rgba(52, 211, 153, 0.3),
-            0 0 20px rgba(52, 211, 153, 0.4);
-    }
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+        .step-container {
+            @apply flex-col items-center text-center;
+        }
 
-    /* Анимация пульсации */
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+        .step-circle {
+            @apply mb-4;
         }
-        70% {
-            box-shadow: 0 0 0 15px rgba(52, 211, 153, 0);
-        }
-        100% {
-            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
-        }
-    }
 
-    .step-circle.pulse {
-        animation: pulse 2s infinite;
+        .step-card {
+            @apply w-full;
+        }
+
+        .step-title-block {
+            @apply justify-center;
+        }
+
+        .info-icon {
+            @apply ml-2;
+        }
     }
 }
 
 @layer utilities {
-    .text-shadow {
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
 }
