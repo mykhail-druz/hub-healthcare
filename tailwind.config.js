@@ -24,13 +24,14 @@ module.exports = {
                 'very-light-gray': '#DDDDDD', // Very Light Gray
             },
             fontFamily: {
-                poppins: ['Poppins', 'sans-serif'],
+                rubik: ['Rubik', 'sans-serif'],
             },
             screens: {
                 md: '768px',
                 lg: '1024px',
                 xl: '1280px',
                 '2xl': '1441px',
+                '3xl': '1920px',
             },
         },
     },

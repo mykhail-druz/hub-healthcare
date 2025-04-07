@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+    html,
+    body {
+        @apply overflow-x-hidden;
+    }
+
     html {
-        @apply font-poppins;
+        @apply font-rubik;
     }
 }
 
@@ -62,7 +67,7 @@
     .nav-link-active::after {
         content: '';
         @apply absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-[70px] h-[5px] bg-accent rounded-full;
-        @apply md:w-[100px] md:bottom-[-20px];
+        @apply md:w-[100px] md:bottom-[-15px];
         @apply lg:w-[130px];
         @apply 2xl:w-[150px];
     }
@@ -674,7 +679,7 @@
     }
 
     .security-links {
-        @apply w-full md:w-1/2 flex flex-col md:flex-row gap-10 md:gap-16;
+        @apply w-full md:w-1/2 flex flex-row gap-10 md:gap-16 items-center justify-center md:items-start md:justify-start;
     }
 
     .security-link-wrapper {
@@ -682,11 +687,11 @@
     }
 
     .security-link {
-        @apply block text-secondary hover:text-accent transition-colors duration-300 tracking-[-7%] leading-[110%];
+        @apply block text-secondary hover:text-accent transition-colors duration-300 tracking-[-7%] leading-[98%];
     }
 
     .security-link-text {
-        @apply text-[22px] md:text-[24px] lg:text-[28px] xl:text-[32px] font-medium underline;
+        @apply text-[22px] md:text-[24px] lg:text-[28px] xl:text-[32px] font-medium underline my-[1px];
     }
 
     .security-section {
@@ -704,7 +709,7 @@
     }
 
     .security-circles {
-        @apply h-[500px] md:h-[550px] lg:h-[600px];
+        @apply h-[500px] md:h-[550px] lg:h-[600px] relative w-full md:w-1/2 pt-[80px] md:pt-0;
         /* Минимальная высота для контейнера, чтобы кружки поместились */
     }
 
@@ -793,41 +798,162 @@
 
     /* Описание в кружке */
     .circle-description {
-        @apply text-center leading-tight mt-2;
+        @apply text-center leading-[98%] tracking-[-7%] mt-2 font-medium;
         @apply text-[12px] md:text-[14px] lg:text-[16px];
     }
 
-    /* Адаптивные стили для мобильных устройств */
-    @media (max-width: 640px) {
-        .security-circles {
-            height: 450px; /* Меньшая высота на очень маленьких экранах */
+    @layer components {
+        .footer {
+            @apply bg-secondary text-white py-16;
         }
 
-        .circle-container.absolute {
-            position: relative;
-            margin: 0 auto;
-            display: block;
-            text-align: center;
+        /* Верхняя часть футера */
+        .footer-top {
+            @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 2xl:grid-cols-6 gap-8 mb-12;
         }
 
-        .security-circles .circle-container:nth-child(1) {
-            top: 10px;
-            right: auto;
-            left: 50%;
-            transform: translateX(-50%);
+        /* Стили для контейнера логотипа */
+        .footer-logo-container {
+            @apply lg:col-span-1;
         }
 
-        .security-circles .circle-container:nth-child(2) {
-            bottom: auto;
-            top: 200px;
-            left: 30%;
+        .footer-logo-link {
+            @apply flex items-center justify-center md:justify-start mb-6;
         }
 
-        .security-circles .circle-container:nth-child(3) {
-            bottom: auto;
-            top: 200px;
-            right: 30%;
-            left: auto;
+        .footer-logo {
+            @apply w-[250px] md:w-[300px] h-[60px];
+        }
+
+        .footer-column {
+            @apply flex flex-col items-center justify-center md:items-start md:justify-start text-center md:text-start;
+        }
+
+        .footer-large-column {
+            @apply lg:col-span-1;
+        }
+
+        /* Заголовки в футере */
+        .footer-heading {
+            @apply text-primary text-[20px] font-medium mb-4 pb-2 relative;
+        }
+
+        /* Зеленая плашка под заголовками - аналогично плашке в навигации */
+        .footer-heading::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-full md:w-[120px] h-[4px] bg-accent;
+        }
+
+        /* Списки в футере */
+        .footer-list {
+            @apply space-y-3;
+        }
+
+        /* Ссылки в футере */
+        .footer-link {
+            @apply hover:text-accent transition-colors text-primary text-[20px] font-light leading-[100%] tracking-[0%];
+        }
+
+        /* Блок с последними постами */
+        .footer-posts {
+            @apply mb-8;
+        }
+
+        .footer-posts-list {
+            @apply space-y-4;
+        }
+
+        .footer-post-item {
+            @apply flex items-start gap-2;
+        }
+
+        .footer-post-image {
+            @apply w-16 h-16 rounded-md overflow-hidden flex-shrink-0;
+        }
+
+        .footer-post-content {
+            @apply text-start;
+        }
+
+        .footer-post-date {
+            @apply text-xs text-gray-300;
+        }
+
+        .footer-post-link {
+            @apply text-sm hover:text-accent;
+        }
+
+        .footer-contacts {
+        }
+
+        .footer-contact-list {
+            @apply space-y-3;
+        }
+
+        .footer-contact-item {
+            @apply flex items-start gap-2 font-light text-[18px];
+        }
+
+        .icon {
+            @apply h-[20px] w-[20px];
+        }
+
+        /* Нижняя часть футера */
+        .footer-bottom {
+            @apply pt-8 flex flex-col md:flex-row justify-between items-center;
+        }
+
+        /* Подписка на рассылку */
+        .footer-subscribe {
+            @apply mb-8 md:mb-0 w-full md:w-1/2;
+        }
+
+        .footer-subscribe-heading {
+            @apply text-[28px] mb-4 font-normal leading-[100%] tracking-[-0.42px] max-w-[220px];
+        }
+
+        .footer-subscribe-form {
+            @apply relative flex items-center w-full md:max-w-[400px];
+        }
+
+        .footer-subscribe-input {
+            @apply bg-transparent border-b border-primary text-white py-2 pr-12 pl-0 w-full focus:outline-none focus:border-accent;
+        }
+
+        .footer-subscribe-button {
+            @apply absolute right-0 bottom-0 bg-accent text-white flex items-center justify-center rounded-t-[12px] w-[50px] h-[50px];
+        }
+
+        .footer-subscribe-icon {
+            @apply h-6 w-6;
+        }
+        /* Социальные сети */
+        .footer-social {
+            @apply flex space-x-4;
+        }
+
+        .footer-social-link {
+            @apply w-12 h-12 rounded-full border border-accent flex items-center justify-center hover:bg-primary transition-colors;
+        }
+
+        /* Стили для меню навигации (для сравнения) */
+        .nav-link-active::after {
+            content: '';
+            @apply absolute bottom-[-10px] left-0 w-full h-[2px] bg-accent;
+            @apply md:bottom-[-15px];
+        }
+
+        /* Стили для формы подписки, соответствующие скриншоту */
+        .subscribe-form {
+            @apply flex items-center;
+        }
+
+        .subscribe-input {
+            @apply bg-transparent border-b border-gray-600 text-white py-2 px-0 focus:outline-none focus:border-accent w-full;
+        }
+
+        .subscribe-button {
+            @apply bg-accent hover:bg-accent/90 text-white p-2 ml-2 rounded flex items-center justify-center transition-colors;
         }
     }
 }
