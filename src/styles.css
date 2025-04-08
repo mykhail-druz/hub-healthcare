@@ -5,7 +5,7 @@
 @layer base {
     html,
     body {
-        @apply overflow-x-hidden;
+        @apply overflow-x-hidden overflow-y-auto h-full;
     }
 
     html {
@@ -66,10 +66,10 @@
 
     .nav-link-active::after {
         content: '';
-        @apply absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-[70px] h-[5px] bg-accent rounded-full;
-        @apply md:w-[100px] md:bottom-[-15px];
-        @apply lg:w-[130px];
-        @apply 2xl:w-[150px];
+        @apply absolute bottom-[-6px] left-0 w-full h-[3px] bg-accent rounded-full transition-all duration-200;
+        @apply md:bottom-[-7px] md:h-[4px];
+        @apply lg:bottom-[-8px];
+        @apply 2xl:bottom-[-10px] 2xl:h-[5px];
     }
 
     .header-btn {
