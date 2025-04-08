@@ -2,36 +2,22 @@
   "name": "hub-healthcare",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "postcss src/styles.css -o src/styles.compiled.css",
-    "build:css:prod": "postcss src/styles.css -o dist/styles.css",
-    "build:html": "copyfiles -f src/*.html dist/",
-    "build:js": "copyfiles -f src/*.js dist/",
-    "build:assets": "copyfiles -u 1 \"src/icons/**/*\" \"src/images/**/*\" dist/",
-    "build": "npm-run-all build:css:prod build:html build:js build:assets",
-    "watch:css": "nodemon --watch src --ext css --exec \"npm run build:css\"",
-    "watch:html": "nodemon --watch src --ext html --exec \"npm run build:html\"",
-    "watch:js": "nodemon --watch src --ext js --exec \"npm run build:js\"",
-    "watch": "npm-run-all --parallel watch:css watch:html watch:js",
-    "prestart": "npm-run-all build:css:prod build:html build:js build:assets",
-    "start": "live-server dist"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "copyfiles": "^2.4.1",
-    "live-server": "^1.2.2",
-    "nodemon": "^3.1.9",
-    "npm-run-all": "^4.1.5",
+    "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
-    "postcss-cli": "^11.0.1",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "vite": "^6.2.5"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.21",
     "prettier": "^3.5.3"
   }
 }

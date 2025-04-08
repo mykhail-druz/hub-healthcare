@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>HUB - Healthcare</title>
-        <link rel="stylesheet" href="styles.compiled.css" />
+        <link rel="stylesheet" href="styles.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -356,6 +356,7 @@
                             <div class="card-item" data-card="1">
                                 <div class="card-content">
                                     <img
+                                        loading="lazy"
                                         src="images/carousel/doctor-1.png"
                                         alt="Julie at an Orthopedic Practice"
                                     />
@@ -373,6 +374,7 @@
                             <div class="card-item" data-card="2">
                                 <div class="card-content">
                                     <img
+                                        loading="lazy"
                                         src="images/carousel/doctor-2.png"
                                         alt="Dr. Michael at Family Practice"
                                     />
@@ -390,6 +392,7 @@
                             <div class="card-item" data-card="3">
                                 <div class="card-content">
                                     <img
+                                        loading="lazy"
                                         src="images/carousel/doctor-3.png"
                                         alt="Dr. Sarah at Pediatric Center"
                                     />
@@ -407,6 +410,7 @@
                             <div class="card-item" data-card="4">
                                 <div class="card-content">
                                     <img
+                                        loading="lazy"
                                         src="images/carousel/doctor-4.png"
                                         alt="Dr. James at Surgical Center"
                                     />
@@ -424,6 +428,7 @@
                             <div class="card-item" data-card="5">
                                 <div class="card-content">
                                     <img
+                                        loading="lazy"
                                         src="images/carousel/doctor-5.png"
                                         alt="Emily at Inventory Management"
                                     />
@@ -445,6 +450,7 @@
                                 <div class="flex-1">
                                     <div class="relative">
                                         <img
+                                            loading="lazy"
                                             class="absolute right-[-50px] top-[-80px] text-accent scale-50"
                                             src="icons/quotes.svg"
                                             alt="Quotes Icon"
@@ -461,6 +467,7 @@
                                             class="flex flex-row gap-[12px] items-center pt-[16px]"
                                         >
                                             <img
+                                                loading="lazy"
                                                 src="images/avatars/avatar-1.png"
                                                 alt="Healthcare Operations Manager"
                                                 class="w-10 h-10 rounded-full"
@@ -481,6 +488,7 @@
                                 <div class="flex-1">
                                     <div class="relative">
                                         <img
+                                            loading="lazy"
                                             class="absolute right-[-50px] top-[-80px] text-accent scale-50"
                                             src="icons/quotes.svg"
                                             alt="Quotes Icon"
@@ -496,6 +504,7 @@
                                             class="flex flex-row gap-[12px] items-center pt-[16px]"
                                         >
                                             <img
+                                                loading="lazy"
                                                 src="images/avatars/avatar-2.png"
                                                 alt="Practice Administrator"
                                                 class="w-10 h-10 rounded-full"
@@ -515,6 +524,7 @@
                                 <div class="flex-1">
                                     <div class="relative">
                                         <img
+                                            loading="lazy"
                                             class="absolute right-[-50px] top-[-80px] text-accent scale-50"
                                             src="icons/quotes.svg"
                                             alt="Quotes Icon"
@@ -529,6 +539,7 @@
                                             class="flex flex-row gap-[12px] items-center pt-[16px]"
                                         >
                                             <img
+                                                loading="lazy"
                                                 src="images/avatars/avatar-3.png"
                                                 alt="Discharge Nurse Supervisor"
                                                 class="w-10 h-10 rounded-full"
@@ -548,6 +559,7 @@
                                 <div class="flex-1">
                                     <div class="relative">
                                         <img
+                                            loading="lazy"
                                             class="absolute right-[-50px] top-[-80px] text-accent scale-50"
                                             src="icons/quotes.svg"
                                             alt="Quotes Icon"
@@ -562,6 +574,7 @@
                                             class="flex flex-row gap-[12px] items-center pt-[16px]"
                                         >
                                             <img
+                                                loading="lazy"
                                                 src="images/avatars/avatar-4.png"
                                                 alt="Home Health Coordinator"
                                                 class="w-10 h-10 rounded-full"
@@ -581,6 +594,7 @@
                                 <div class="flex-1">
                                     <div class="relative">
                                         <img
+                                            loading="lazy"
                                             class="absolute right-[-50px] top-[-80px] text-accent scale-50"
                                             src="icons/quotes.svg"
                                             alt="Quotes Icon"
@@ -595,6 +609,7 @@
                                             class="flex flex-row gap-[12px] items-center pt-[16px]"
                                         >
                                             <img
+                                                loading="lazy"
                                                 src="images/avatars/avatar-5.png"
                                                 alt="Surgical Services Manager"
                                                 class="w-10 h-10 rounded-full"
@@ -610,6 +625,25 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            <section class="container pt-[80px] md:pt-[100px] lg:pt-[120px]">
+                <div class="w-full flex flex-col items-center justify-center">
+                    <h3 class="section-subtitle">See HUB in Action</h3>
+                    <h2 class="section-title pt-[30px] pb-[60px]">
+                        Smarter Processes for
+                        <span class="text-accent">Better Care</span>
+                    </h2>
+                    <video
+                        loading="lazy"
+                        autoplay
+                        loop
+                        muted
+                        class="w-full max-w-[1280px] rounded-[53px]"
+                    >
+                        <source src="videos/explainer.mp4" type="video/mp4" />
+                        Ваш браузер не поддерживает видео.
+                    </video>
                 </div>
             </section>
             <section class="container pt-[80px] md:pt-[100px] lg:pt-[120px]">
@@ -769,7 +803,194 @@
                         alt="Simplifying Healthcare"
                         class="my-[100px] w-[500px] h-[500px]"
                     />
-                    <h3 class="section-title text-[36px]">
+                    <!-- Основной контейнер для всего компонента -->
+                    <div class="interactive-elements-container">
+                        <div class="interactive-elements-block">
+                            <div class="absolute top-[10%] left-[10%] z-[50]">
+                                <img
+                                    src="icons/simplify/alert.png"
+                                    alt="Alert Icon"
+                                    class="w-[120px] h-[120px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[20%] left-[26%] z-[50]"
+                            >
+                                <img
+                                    src="icons/simplify/alert.png"
+                                    alt="Alert Icon"
+                                    class="w-[120px] h-[120px]"
+                                />
+                            </div>
+                            <div class="absolute top-[9%] right-[20%] z-[50]">
+                                <img
+                                    src="icons/simplify/alert.png"
+                                    alt="Alert Icon"
+                                    class="w-[120px] h-[120px]"
+                                />
+                            </div>
+                            <div class="absolute top-[40%] right-[-5%] z-[50]">
+                                <img
+                                    src="icons/simplify/alert.png"
+                                    alt="Alert Icon"
+                                    class="w-[120px] h-[120px]"
+                                />
+                            </div>
+                            <div class="absolute top-0 left-[50%] z-[50]">
+                                <img
+                                    src="icons/simplify/cross.svg"
+                                    alt="Cross Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-[30%] left-[30%] z-[50]">
+                                <img
+                                    src="icons/simplify/cross.svg"
+                                    alt="Cross Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[20%] right-[40%] z-[50]"
+                            >
+                                <img
+                                    src="icons/simplify/cross.svg"
+                                    alt="Cross Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-[5%] left-[5%] z-[50]">
+                                <img
+                                    src="icons/simplify/chain.svg"
+                                    alt="Chain Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-[5%] right-[5%] z-[50]">
+                                <img
+                                    src="icons/simplify/chain.svg"
+                                    alt="Chain Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute bottom-[5%] right-[5%] z-[50]">
+                                <img
+                                    src="icons/simplify/chain.svg"
+                                    alt="Chain Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-[45%] left-[-5%] z-[50]">
+                                <img
+                                    src="icons/simplify/question-1.svg"
+                                    alt="Question Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-[2%] right-[20%] z-[50]">
+                                <img
+                                    src="icons/simplify/question-2.svg"
+                                    alt="Question Icon"
+                                    class="w-[45px] h-[45px]"
+                                />
+                            </div>
+                            <div class="absolute top-0 left-[16%] z-[10]">
+                                <img
+                                    src="icons/simplify/calc.svg"
+                                    alt="Calc Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute top-[16%] left-[-6%] z-[10]">
+                                <img
+                                    src="icons/simplify/wagon.svg"
+                                    alt="Wagon Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[15%] left-[-5%] z-[10]"
+                            >
+                                <img
+                                    src="icons/simplify/card.png"
+                                    alt="Card Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute top-[30%] left-[15%] z-[10]">
+                                <img
+                                    src="icons/simplify/fax.svg"
+                                    alt="Fax Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[-4%] left-[18%] z-[10]"
+                            >
+                                <img
+                                    src="icons/simplify/books.svg"
+                                    alt="Books Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute bottom-[20%] left-[35%] z-[0]">
+                                <img
+                                    src="icons/simplify/desktop.svg"
+                                    alt="Desktop Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute top-[10%] left-[40%] z-[10]">
+                                <img
+                                    src="icons/simplify/phone.svg"
+                                    alt="Phone Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[-10%] right-[15%] z-[10]"
+                            >
+                                <img
+                                    src="icons/simplify/calendar.svg"
+                                    alt="Calendar Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute top-[30%] right-[25%] z-[10]">
+                                <img
+                                    src="icons/simplify/confusion.svg"
+                                    alt="Confusion Icon"
+                                    class="w-[130px] h-[200px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[-10%] right-[15%] z-[10]"
+                            >
+                                <img
+                                    src="icons/simplify/calendar.svg"
+                                    alt="Calendar Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div class="absolute top-[15%] right-[-5%] z-[10]">
+                                <img
+                                    src="icons/simplify/mail.svg"
+                                    alt="Mail Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                            <div
+                                class="absolute bottom-[15%] right-[0%] z-[10]"
+                            >
+                                <img
+                                    src="icons/simplify/note.svg"
+                                    alt="Note Icon"
+                                    class="w-[230px] h-[230px]"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="section-title text-[36px] lg:pt-[120px]">
                         Ready to
                         <span class="text-accent">bring your tools</span> and
                         data together?
@@ -786,51 +1007,61 @@
                         >
                             <!-- Первый набор логотипов -->
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-1.png"
                                 alt="Company 1"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-2.png"
                                 alt="Company 2"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-3.png"
                                 alt="Company 3"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-4.png"
                                 alt="Company 4"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-5.png"
                                 alt="Company 5"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-6.png"
                                 alt="Company 6"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-7.png"
                                 alt="Company 7"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-8.png"
                                 alt="Company 8"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-9.png"
                                 alt="Company 9"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-10.png"
                                 alt="Company 10"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
@@ -838,51 +1069,61 @@
 
                             <!-- Повторяем набор для непрерывной анимации -->
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-1.png"
                                 alt="Company 1"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-2.png"
                                 alt="Company 2"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-3.png"
                                 alt="Company 3"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-4.png"
                                 alt="Company 4"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-5.png"
                                 alt="Company 5"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-6.png"
                                 alt="Company 6"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-7.png"
                                 alt="Company 7"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-8.png"
                                 alt="Company 8"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-9.png"
                                 alt="Company 9"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-10.png"
                                 alt="Company 10"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
@@ -890,51 +1131,61 @@
 
                             <!-- Дополнительно повторяем, чтобы избежать пустого пространства при анимации -->
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-1.png"
                                 alt="Company 1"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-2.png"
                                 alt="Company 2"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-3.png"
                                 alt="Company 3"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-4.png"
                                 alt="Company 4"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-5.png"
                                 alt="Company 5"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-6.png"
                                 alt="Company 6"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-7.png"
                                 alt="Company 7"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-8.png"
                                 alt="Company 8"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-9.png"
                                 alt="Company 9"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
                             />
                             <img
+                                loading="lazy"
                                 src="images/logo-ticker/company-10.png"
                                 alt="Company 10"
                                 class="logo-ticker-image w-[185px] h-[80px] object-contain flex-none"
@@ -1291,6 +1542,7 @@
                     <div class="footer-logo-container">
                         <a href="/" class="footer-logo-link">
                             <img
+                                loading="lazy"
                                 src="images/logo-footer.png"
                                 alt="HUB Healthcare"
                                 class="footer-logo"
@@ -1372,6 +1624,7 @@
                             <article class="footer-post-item">
                                 <div class="footer-post-image">
                                     <img
+                                        loading="lazy"
                                         src="images/blog/post.png"
                                         alt="Blog post"
                                     />
@@ -1388,6 +1641,7 @@
                             <article class="footer-post-item">
                                 <div class="footer-post-image">
                                     <img
+                                        loading="lazy"
                                         src="images/blog/post.png"
                                         alt="Blog post"
                                     />

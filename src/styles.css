@@ -586,6 +586,16 @@
         }
     }
 
+    /*<----- Simplify section components ----->*/
+
+    .interactive-elements-container {
+        @apply flex items-center justify-center w-full;
+    }
+
+    .interactive-elements-block {
+        @apply relative flex items-center justify-center w-[600px] h-[600px];
+    }
+
     /*<----- Secure and compliant section ----->*/
 
     /* Внешний контейнер с маской для эффекта затухания */
