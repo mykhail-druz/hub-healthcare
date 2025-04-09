@@ -606,3 +606,406 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Получаем элементы
+    const slider = document.querySelector('.simplify-slider')
+    const sliderLogo = document.querySelector('.slider-logo')
+    const badIcons = document.querySelectorAll(
+        'img[src*="alert"], img[src*="question"], img[src*="cross"], img[src*="chain"]'
+    )
+    const confusionIcon = document.querySelector('img[src*="confusion"]')
+    const goodIcons = document.querySelectorAll(
+        'img[src*="calc"], img[src*="wagon"], img[src*="card"], img[src*="fax"], img[src*="books"], img[src*="desktop"], img[src*="phone-missed"], img[src*="calendar"], img[src*="email"], img[src*="note"]'
+    )
+
+    // Сохраняем исходные позиции хороших иконок для возможности возвращения
+    const originalPositions = Array.from(goodIcons).map((icon) => {
+        const parent = icon.closest('div')
+        return {
+            element: parent,
+            top: parent.style.top || window.getComputedStyle(parent).top,
+            left: parent.style.left || window.getComputedStyle(parent).left,
+            right: parent.style.right || window.getComputedStyle(parent).right,
+            bottom:
+                parent.style.bottom || window.getComputedStyle(parent).bottom,
+        }
+    })
+
+    // Флаг для отслеживания состояния слайдера
+    let isSimplified = false
+
+    // Начальная и конечная позиция логотипа
+    const startPosition = 5
+    const endPosition = slider.offsetWidth - sliderLogo.offsetWidth - 15
+
+    // Переменные для отслеживания перетаскивания
+    let isDragging = false
+    let startX = 0
+    let currentX = 0
+
+    // Создаем орбитальный контейнер, если его еще нет
+    let orbitalSystem = document.querySelector('.orbital-system')
+    if (!orbitalSystem) {
+        orbitalSystem = document.createElement('div')
+        orbitalSystem.className = 'orbital-system'
+        const interactiveBlock = document.querySelector(
+            '.interactive-elements-block'
+        )
+        if (interactiveBlock) {
+            interactiveBlock.appendChild(orbitalSystem)
+        }
+    }
+
+    // Функция для скрытия "плохих" иконок
+    function hideIcons() {
+        // Скрываем "плохие" иконки
+        badIcons.forEach((icon) => {
+            const parent = icon.closest('div')
+            parent.classList.add('hiding-element')
+
+            // После завершения анимации скрываем элемент полностью
+            setTimeout(() => {
+                parent.style.display = 'none'
+            }, 600)
+        })
+
+        // Скрываем иконку confusion
+        if (confusionIcon) {
+            const parent = confusionIcon.closest('div')
+            parent.classList.add('hiding-element')
+
+            setTimeout(() => {
+                parent.style.display = 'none'
+            }, 600)
+        }
+
+        // Создаем орбитальную систему
+        createOrbitalSystem()
+    }
+
+    // Функция для показа "плохих" иконок
+    function showIcons() {
+        // Показываем "плохие" иконки
+        badIcons.forEach((icon) => {
+            const parent = icon.closest('div')
+            parent.style.display = ''
+
+            // Небольшая задержка перед анимацией появления
+            setTimeout(() => {
+                parent.classList.remove('hiding-element')
+            }, 10)
+        })
+
+        // Показываем иконку confusion
+        if (confusionIcon) {
+            const parent = confusionIcon.closest('div')
+            parent.style.display = ''
+
+            setTimeout(() => {
+                parent.classList.remove('hiding-element')
+            }, 10)
+        }
+
+        // Возвращаем хорошие иконки на их исходные позиции
+        resetIconPositions()
+    }
+
+    // Функция для создания орбитальной системы иконок
+    function createOrbitalSystem() {
+        // Очищаем предыдущие элементы
+        while (orbitalSystem.firstChild) {
+            orbitalSystem.removeChild(orbitalSystem.firstChild)
+        }
+
+        // Создаем центральный HUB
+        const hubElement = document.createElement('div')
+        hubElement.className = 'hub-center'
+        hubElement.innerHTML = '<div class="hub-text">HUB</div>'
+        orbitalSystem.appendChild(hubElement)
+
+        // Создаем круговую орбиту
+        const orbit = document.createElement('div')
+        orbit.className = 'orbit'
+        orbitalSystem.appendChild(orbit)
+
+        // Создаем соединительные линии
+        const connectionsContainer = document.createElement('div')
+        connectionsContainer.className = 'connections-container'
+        orbitalSystem.appendChild(connectionsContainer)
+
+        // Добавляем иконки на орбиту
+        goodIcons.forEach((icon, index) => {
+            const parent = icon.closest('div')
+            const iconClone = icon.cloneNode(true)
+
+            // Создаем контейнер для иконки
+            const iconContainer = document.createElement('div')
+            iconContainer.className = 'orbital-icon-container'
+
+            // Устанавливаем размер
+            iconClone.style.width = '120px'
+            iconClone.style.height = '120px'
+            iconClone.style.objectFit = 'contain'
+
+            // Добавляем иконку в контейнер
+            iconContainer.appendChild(iconClone)
+
+            // Позиционируем иконки равномерно вокруг орбиты
+            const angle = (360 / goodIcons.length) * index
+            iconContainer.style.transform = `rotate(${angle}deg) translateX(180px) rotate(-${angle}deg)`
+
+            // Задержка перед появлением каждой иконки
+            setTimeout(() => {
+                orbit.appendChild(iconContainer)
+            }, index * 100)
+
+            // Скрываем оригинальную иконку
+            parent.style.opacity = '0'
+            parent.style.pointerEvents = 'none'
+        })
+
+        // Запускаем вращение орбиты после добавления всех иконок
+        setTimeout(
+            () => {
+                orbit.classList.add('orbit-animation')
+                connectionsContainer.classList.add('connections-animation')
+                hubElement.classList.add('hub-animation')
+            },
+            goodIcons.length * 100 + 200
+        )
+    }
+
+    // Функция для возвращения хороших иконок на исходные позиции
+    function resetIconPositions() {
+        // Останавливаем вращение и очищаем орбитальную систему
+        const orbit = document.querySelector('.orbit')
+        if (orbit) {
+            orbit.classList.remove('orbit-animation')
+        }
+
+        setTimeout(() => {
+            while (orbitalSystem.firstChild) {
+                orbitalSystem.removeChild(orbitalSystem.firstChild)
+            }
+        }, 300)
+
+        // Возвращаем видимость оригинальным иконкам
+        originalPositions.forEach((pos, index) => {
+            pos.element.style.transition =
+                'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
+            pos.element.style.opacity = '1'
+            pos.element.style.pointerEvents = 'auto'
+
+            // Сбрасываем трансформацию
+            pos.element.style.transform = ''
+
+            // Возвращаем исходные позиции
+            if (pos.top) pos.element.style.top = pos.top
+            if (pos.left) pos.element.style.left = pos.left
+            if (pos.right) pos.element.style.right = pos.right
+            if (pos.bottom) pos.element.style.bottom = pos.bottom
+        })
+    }
+
+    // Функция для сброса позиции логотипа
+    function resetLogo() {
+        sliderLogo.style.transition = 'left 0.3s ease-out'
+        sliderLogo.style.left = startPosition + 'px'
+        setTimeout(() => {
+            sliderLogo.style.transition = ''
+        }, 300)
+    }
+
+    // Функция для завершения свайпа вправо (упрощение)
+    function completeSwipeRight() {
+        sliderLogo.style.transition = 'left 0.3s ease-out'
+
+        // Устанавливаем позицию логотипа справа (не слишком далеко)
+        sliderLogo.style.left =
+            slider.offsetWidth - sliderLogo.offsetWidth - 5 + 'px'
+
+        isSimplified = true
+        hideIcons()
+
+        // Заменяем текст на "Simplified!"
+        const sliderText = document.querySelector('.slider-text')
+        if (sliderText) {
+            sliderText.textContent = 'Simplified!'
+            sliderText.classList.add('text-simplified')
+        }
+
+        // Меняем стрелки (центрируем вертикально и поворачиваем)
+        const sliderArrows = document.querySelector('.slider-arrows')
+        if (sliderArrows) {
+            sliderArrows.style.right = 'auto'
+            sliderArrows.style.left = '25px'
+            sliderArrows.style.top = '50%'
+            sliderArrows.style.transform = 'translateY(-50%) rotate(180deg)'
+        }
+
+        setTimeout(() => {
+            sliderLogo.style.transition = ''
+        }, 300)
+    }
+
+    // Функция для обратного свайпа (возврат к исходному состоянию)
+    function completeSwipeLeft() {
+        sliderLogo.style.transition = 'left 0.3s ease-out'
+        sliderLogo.style.left = startPosition + 'px'
+        isSimplified = false
+        showIcons()
+
+        // Возвращаем исходный текст
+        const sliderText = document.querySelector('.slider-text')
+        if (sliderText) {
+            sliderText.textContent = 'Slide to Simplify'
+            sliderText.classList.remove('text-simplified')
+        }
+
+        // Возвращаем стрелки в исходное положение
+        const sliderArrows = document.querySelector('.slider-arrows')
+        if (sliderArrows) {
+            sliderArrows.style.transform = 'translateY(-50%) rotate(0deg)'
+            sliderArrows.style.right = '25px'
+            sliderArrows.style.left = 'auto'
+        }
+
+        setTimeout(() => {
+            sliderLogo.style.transition = ''
+        }, 300)
+    }
+
+    // События мыши
+    sliderLogo.addEventListener('mousedown', function (e) {
+        isDragging = true
+        startX = e.clientX
+        currentX = parseInt(
+            sliderLogo.style.left ||
+                (isSimplified ? endPosition : startPosition)
+        )
+
+        // Предотвращаем выделение текста при перетаскивании
+        e.preventDefault()
+    })
+
+    document.addEventListener('mousemove', function (e) {
+        if (!isDragging) return
+
+        const deltaX = e.clientX - startX
+        let newPosition = currentX + deltaX
+
+        // Ограничиваем перемещение в пределах слайдера
+        if (newPosition < startPosition) newPosition = startPosition
+        if (newPosition > endPosition) newPosition = endPosition
+
+        sliderLogo.style.left = newPosition + 'px'
+    })
+
+    document.addEventListener('mouseup', function () {
+        if (!isDragging) return
+        isDragging = false
+
+        // Определяем, достаточно ли далеко перетащили логотип
+        const currentPosition = parseInt(
+            sliderLogo.style.left ||
+                (isSimplified ? endPosition : startPosition)
+        )
+        const threshold = startPosition + (endPosition - startPosition) * 0.5 // Пороговое значение посередине
+
+        // Обрабатываем в зависимости от текущего состояния
+        if (!isSimplified && currentPosition >= threshold) {
+            // Если не упрощено и перетащили вправо за середину
+            completeSwipeRight()
+        } else if (isSimplified && currentPosition <= threshold) {
+            // Если упрощено и перетащили влево за середину
+            completeSwipeLeft()
+        } else if (isSimplified) {
+            // Если упрощено и не дотащили до середины - возвращаем вправо
+            sliderLogo.style.transition = 'left 0.3s ease-out'
+            sliderLogo.style.left =
+                slider.offsetWidth - sliderLogo.offsetWidth - 5 + 'px'
+            setTimeout(() => {
+                sliderLogo.style.transition = ''
+            }, 300)
+        } else {
+            // Если не упрощено и не дотащили до середины - возвращаем влево
+            resetLogo()
+        }
+    })
+
+    // События касания для мобильных устройств
+    sliderLogo.addEventListener(
+        'touchstart',
+        function (e) {
+            isDragging = true
+            startX = e.touches[0].clientX
+            currentX = parseInt(
+                sliderLogo.style.left ||
+                    (isSimplified ? endPosition : startPosition)
+            )
+
+            // Предотвращаем прокрутку страницы при свайпе
+            e.preventDefault()
+        },
+        { passive: false }
+    )
+
+    document.addEventListener(
+        'touchmove',
+        function (e) {
+            if (!isDragging) return
+
+            const deltaX = e.touches[0].clientX - startX
+            let newPosition = currentX + deltaX
+
+            // Ограничиваем перемещение в пределах слайдера
+            if (newPosition < startPosition) newPosition = startPosition
+            if (newPosition > endPosition) newPosition = endPosition
+
+            sliderLogo.style.left = newPosition + 'px'
+        },
+        { passive: true }
+    )
+
+    document.addEventListener('touchend', function () {
+        if (!isDragging) return
+        isDragging = false
+
+        // Определяем, достаточно ли далеко перетащили логотип
+        const currentPosition = parseInt(
+            sliderLogo.style.left ||
+                (isSimplified ? endPosition : startPosition)
+        )
+        const threshold = startPosition + (endPosition - startPosition) * 0.5
+
+        // Обрабатываем в зависимости от текущего состояния
+        if (!isSimplified && currentPosition >= threshold) {
+            completeSwipeRight()
+        } else if (isSimplified && currentPosition <= threshold) {
+            completeSwipeLeft()
+        } else if (isSimplified) {
+            sliderLogo.style.transition = 'left 0.3s ease-out'
+            sliderLogo.style.left =
+                slider.offsetWidth - sliderLogo.offsetWidth - 5 + 'px'
+            setTimeout(() => {
+                sliderLogo.style.transition = ''
+            }, 300)
+        } else {
+            resetLogo()
+        }
+    })
+
+    // Добавляем указатель курсора при наведении для лучшего UX
+    sliderLogo.style.cursor = 'grab'
+    sliderLogo.addEventListener('mousedown', function () {
+        sliderLogo.style.cursor = 'grabbing'
+    })
+    document.addEventListener('mouseup', function () {
+        sliderLogo.style.cursor = 'grab'
+    })
+
+    // Инициализируем слайдер с правильным размером лого
+    sliderLogo.querySelector('img').style.maxWidth = '50px'
+    sliderLogo.querySelector('img').style.maxHeight = '50px'
+})
