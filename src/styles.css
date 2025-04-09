@@ -26,7 +26,7 @@
     }
 
     .section-subtitle {
-        @apply text-secondary text-[32px] font-medium leading-[0] tracking-[-7%];
+        @apply text-secondary text-[32px] font-medium tracking-[-7%] w-full;
     }
 
     .section-description {
@@ -100,7 +100,7 @@
     }
 
     .nav-links {
-        @apply flex flex-col space-y-[16px] items-center;
+        @apply flex flex-col space-y-[24px] items-center;
         @apply md:flex-row md:space-y-0 md:space-x-[32px];
         @apply lg:space-x-[40px];
         @apply 2xl:space-x-[60px];
@@ -234,7 +234,6 @@
         height: 533px;
     }
 
-    /* Стили для карточек */
     .card-item {
         @apply absolute transition-all duration-500 ease-in-out rounded-[24px] overflow-hidden border-[9px] border-primary;
         width: 400px;
@@ -242,14 +241,12 @@
         transform-origin: center center;
     }
 
-    /* Первая карточка (активная) */
     .card-item:nth-child(1) {
         transform: translateX(0);
         z-index: 40;
         scale: 1;
     }
 
-    /* Вторая карточка */
     .card-item:nth-child(2) {
         @apply hidden md:block;
         transform: translateX(80px);
@@ -257,7 +254,6 @@
         scale: 0.9;
     }
 
-    /* Третья карточка */
     .card-item:nth-child(3) {
         @apply hidden md:block;
         transform: translateX(160px);
@@ -265,7 +261,6 @@
         scale: 0.8;
     }
 
-    /* Четвертая карточка */
     .card-item:nth-child(4) {
         @apply hidden md:block;
         transform: translateX(250px);
@@ -273,12 +268,10 @@
         scale: 0.7;
     }
 
-    /*!* Пятая карточка *!*/
     .card-item:nth-child(5) {
         @apply hidden;
     }
 
-    /* Карточка с плавным градиентом */
     .card-content {
         @apply relative h-full w-full;
     }
@@ -311,12 +304,10 @@
         text-decoration: none;
     }
 
-    /* Анимация для карточек */
     .slide-transition {
         @apply transition-all duration-500 ease-in-out;
     }
 
-    /* Стили для статистики */
     .stat-group {
         @apply hidden;
     }
@@ -325,7 +316,6 @@
         @apply flex flex-col gap-6;
     }
 
-    /* Стили для цитат */
     .quote-container {
         @apply relative mt-12 md:mt-6 flex items-start gap-3 z-[100];
     }
@@ -338,18 +328,15 @@
         @apply block;
     }
 
-    /* Основной контейнер карусели */
     .workflow-carousel {
         @apply w-full max-w-[1280px] relative overflow-hidden rounded-[53px];
-        height: 550px; /* Фиксированная высота для всей карусели */
+        height: 550px;
     }
 
-    /* Контейнер для слайдов */
     .workflow-slides-container {
         @apply w-full h-full;
     }
 
-    /* Отдельный слайд */
     .workflow-slide {
         @apply w-full h-full flex-shrink-0 rounded-[53px] bg-[#1E2A49] text-white overflow-hidden relative;
         position: absolute;
@@ -366,47 +353,38 @@
         z-index: 10;
     }
 
-    /* Внутренний контейнер слайда */
     .slide-inner {
         @apply flex flex-col md:flex-row h-full w-full relative z-10 bg-black/75;
     }
 
-    /* Левая часть слайда (контент) */
     .slide-content {
         @apply p-8 md:p-12 md:w-[55%] flex flex-col justify-between;
     }
 
-    /* Заголовок слайда */
     .slide-title {
         @apply text-white text-[36px] md:text-[42px] lg:text-[48px] font-medium mb-6 leading-tight;
     }
 
-    /* Описание слайда */
     .slide-description {
         @apply text-white/90 text-[16px] md:text-[18px] max-w-[500px] mb-8 leading-relaxed;
     }
 
-    /* Блок с цитатой */
     .slide-quote {
         @apply relative mb-8;
     }
 
-    /* Иконка цитаты */
     .quote-image {
         @apply scale-50 mr-auto;
     }
 
-    /* Текст цитаты */
     .quote-text {
         @apply text-white/90 text-[16px] italic mb-4 max-w-[450px];
     }
 
-    /* Автор цитаты */
     .quote-author {
         @apply flex items-center gap-3;
     }
 
-    /* Аватар автора */
     .author-avatar {
         @apply w-12 h-12 rounded-full border-2 border-accent/50 overflow-hidden;
     }
@@ -415,7 +393,6 @@
         @apply w-full h-full object-cover;
     }
 
-    /* Информация об авторе */
     .author-info {
         @apply text-white/80 text-[14px];
     }
@@ -424,70 +401,57 @@
         @apply hidden  md:w-[45%] md:flex flex-col items-center justify-center p-8 md:p-0 md:pr-12;
     }
 
-    /* Отдельная метрика */
     .metric-item {
         @apply flex items-center mb-10 last:mb-0;
     }
 
-    /* Вертикальная линия для метрик */
     .metric-line {
         @apply w-2 h-32 bg-accent mr-4 flex-shrink-0;
     }
 
-    /* Контейнер для значения и описания метрики */
     .metric-content {
         @apply flex flex-col space-y-4;
     }
 
-    /* Значение метрики */
     .metric-value {
         @apply text-primary text-[48px] md:text-[56px] lg:text-[64px] font-bold leading-[98%] tracking-[-7%];
     }
 
-    /* Описание метрики */
     .metric-description {
         @apply text-primary text-[14px] md:text-[16px] max-w-[200px] leading-[94%];
     }
 
-    /* Навигация карусели - теперь внутри контейнера */
     .workflow-navigation {
         @apply flex items-center justify-center absolute bottom-5 left-0 right-0 z-20;
     }
 
-    /* Точки навигации */
     .carousel-dots {
         @apply flex gap-2;
     }
 
-    /* Отдельная точка */
     .carousel-dot {
         @apply w-3 h-3 rounded-full bg-[#D9D9D9] transition-all duration-300 cursor-pointer;
     }
 
-    /* Активная точка */
     .carousel-dot.active {
         @apply bg-accent w-8;
     }
 
-    /* Вертикальная линия для метрик */
     .metric-line {
         @apply w-2 h-32 bg-accent mr-4;
     }
 
     /*<----->*/
 
-    /* Контейнер шага с кругом и карточкой */
     .step-container {
         @apply flex items-start gap-5 mb-8;
     }
 
-    /* Стилизация круга с номером шага */
     .step-circle {
         @apply relative w-[80px] h-[80px] flex items-center justify-center flex-shrink-0;
         transition: all 0.3s ease;
     }
 
-    /* Внутренний зеленый круг */
     .step-circle::before {
         content: '';
         @apply absolute w-[64px] h-[64px] bg-accent rounded-full;
@@ -497,7 +461,6 @@
         z-index: 1;
     }
 
-    /* Средний белый круг */
     .step-circle::after {
         content: '';
         @apply absolute w-[75px] h-[75px] bg-white rounded-full;
@@ -507,7 +470,6 @@
         z-index: 0;
     }
 
-    /* Внешний зеленый ободок (изначально тонкий) */
     .step-circle-border {
         @apply absolute bg-accent w-[80px] h-[80px] rounded-full;
         top: 50%;
@@ -517,35 +479,29 @@
         transition: all 0.3s ease;
     }
 
-    /* Цифра внутри круга */
     .step-circle span {
         @apply text-white text-[28px] font-medium relative leading-[98%];
         z-index: 2;
     }
 
-    /* Увеличение внешнего зеленого ободка при наведении */
     .step-container:hover .step-circle-border {
         @apply bg-accent w-[90px] h-[90px];
     }
 
-    /* Стиль для карточки */
     .step-card {
         @apply flex-grow bg-accent rounded-2xl p-6 text-white;
         min-height: 90px;
         transition: all 0.3s ease;
     }
 
-    /* Блок заголовка с гибкой разметкой */
     .step-title-block {
         @apply flex flex-row space-x-[12px] items-center w-full;
     }
 
-    /* Стиль для заголовка */
     .step-title {
         @apply text-white text-[22px] md:text-[26px] font-medium;
     }
 
-    /* Стиль для иконки информации */
     .info-icon {
         @apply w-6 h-6 opacity-[68%];
     }
@@ -604,18 +560,14 @@
         @apply relative flex w-[400px] h-[85px] rounded-full bg-accent text-center items-center justify-center;
     }
 
-    /* Дополнительные стили для улучшения UI/UX слайдера */
-
-    /* Дополнительные стили для улучшения UI/UX слайдера */
-
     .slider-logo {
         @apply absolute top-[50%] left-[5px] translate-y-[-50%] rounded-full bg-primary p-2 border-[5px] border-white/35;
         transition:
             transform 0.2s ease,
             box-shadow 0.3s ease;
         will-change: left, transform;
-        touch-action: none; /* Предотвращает стандартное поведение касания на мобильных */
-        z-index: 10; /* Обеспечивает, что логотип всегда будет поверх других элементов */
+        touch-action: none;
+        z-index: 10;
         width: 70px;
         height: 70px;
         display: flex;
@@ -679,7 +631,6 @@
         z-index: 1;
     }
 
-    /* Стили для анимации скрытия иконок */
     .interactive-elements-block > div {
         transition:
             opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -692,7 +643,6 @@
         pointer-events: none;
     }
 
-    /* Стили для орбитальной системы */
     .orbital-system {
         position: absolute;
         top: 50%;
@@ -706,7 +656,6 @@
         perspective: 800px;
     }
 
-    /* Центральный HUB */
     .hub-center {
         @apply bg-accent;
         position: absolute;
@@ -735,7 +684,6 @@
         text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    /* Орбита и иконки */
     .orbit {
         @apply border-[2px] border-dashed border-accent;
         position: absolute;
@@ -770,7 +718,7 @@
 
     .orbital-icon-container img {
         transform-origin: center;
-        transform: rotate(0deg); /* Компенсация вращения орбиты */
+        transform: rotate(0deg);
         transition: transform 0.3s ease;
         width: 100px;
         height: 100px;
@@ -780,31 +728,6 @@
         transform: scale(1.2) rotate(0deg);
         filter: brightness(1.2);
     }
-
-    /*!* Соединительные линии *!*/
-    /*.connections-container {*/
-    /*    position: absolute;*/
-    /*    width: 380px;*/
-    /*    height: 380px;*/
-    /*    transform-style: preserve-3d;*/
-    /*    z-index: 10;*/
-    /*}*/
-
-    /*.connections-animation {*/
-    /*    animation: pulse-subtle 4s infinite ease-in-out;*/
-    /*}*/
-
-    /*.connection-line {*/
-    /*    position: absolute;*/
-    /*    top: 50%;*/
-    /*    left: 50%;*/
-    /*    width: 190px; !* Половина диаметра орбиты *!*/
-    /*    height: 1px;*/
-    /*    background: linear-gradient(90deg, #4caf50, transparent);*/
-    /*    transform-origin: left center;*/
-    /*    opacity: 0;*/
-    /*    animation: fadeIn 0.8s ease-out forwards;*/
-    /*}*/
 
     .connection-line::before {
         content: '';
@@ -818,7 +741,6 @@
         animation: pulse-line 2s infinite;
     }
 
-    /* Анимации */
     @keyframes rotate {
         0% {
             transform: rotate(0deg);
@@ -871,23 +793,19 @@
 
     /*<----- Secure and compliant section ----->*/
 
-    /* Внешний контейнер с маской для эффекта затухания */
     .logo-ticker-outer {
         @apply w-full mx-auto max-w-[1280px];
     }
 
-    /* Внутренний контейнер с логотипами и анимацией */
     .logo-ticker-inner {
         @apply flex gap-14 flex-nowrap;
         animation: infinite-scroll 30s linear infinite;
     }
 
-    /* Логотипы */
     .logo-ticker-image {
         @apply w-[185px] h-[80px] object-contain flex-none transition-transform duration-300;
     }
 
-    /* Анимация бесконечной прокрутки */
     @keyframes infinite-scroll {
         from {
             transform: translateX(0);
@@ -911,24 +829,21 @@
 
     .grid-item {
         @apply flex flex-col items-start justify-start;
-        /* Адаптивные отступы */
+
         @apply p-4 sm:p-5 md:p-6 lg:p-[35px] md:pb-[50px] lg:pb-[70px];
-        /* Границы */
+
         @apply border-[3px] sm:border-[4px] md:border-[5px] border-accent;
-        /* Адаптивная высота */
+
         @apply h-auto;
     }
 
-    /* Адаптивная ширина для разных экранов */
     @media (min-width: 768px) and (max-width: 1279px) {
-        /* md и lg - сетка 2×2, ширина автоматически 50% из-за grid-cols-2 */
         .grid-item {
-            min-height: 350px; /* Минимальная высота для выравнивания по сетке */
+            min-height: 350px;
         }
     }
 
     @media (min-width: 1280px) {
-        /* xl и больше - 4 блока в ряд */
         .grid-item {
             @apply w-1/4;
             min-height: 360px;
@@ -936,28 +851,25 @@
     }
 
     .grid-item-img {
-        /* Адаптивный размер иконок */
         @apply w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] lg:w-[100px] lg:h-[100px];
     }
 
     .grid-item-title {
-        /* Адаптивные отступы */
         @apply pt-[12px] sm:pt-[16px] md:pt-[24px] lg:pt-[36px];
         @apply pb-[10px] sm:pb-[12px] md:pb-[20px] lg:pb-[28px];
-        /* Адаптивный размер шрифта */
+
         @apply text-secondary text-[22px] sm:text-[26px] md:text-[32px] lg:text-[38px] 2xl:text-[45px];
-        /* Адаптивный leading */
+
         @apply font-medium leading-[100%] sm:leading-[96%] md:leading-[90%] lg:leading-[84%];
         @apply tracking-[-5%] md:tracking-[-7%];
     }
 
     .grid-item-desc {
-        /* Адаптивный размер шрифта */
         @apply text-secondary text-[12px] sm:text-[13px] md:text-[14px] lg:text-[16px];
-        /* Адаптивный leading для лучшей читаемости на маленьких экранах */
+
         @apply font-medium leading-[140%] sm:leading-[130%] md:leading-[120%] lg:leading-[96%];
         @apply tracking-[-3%] md:tracking-[-5%] lg:tracking-[-7%];
-        /* Нижний отступ */
+
         @apply pb-3 md:pb-4;
     }
 
@@ -984,7 +896,6 @@
         gap: 2rem;
     }
 
-    /* На мобильных устройствах переключаемся на один столбец */
     @media (max-width: 768px) {
         .security-section {
             grid-template-columns: 1fr;
@@ -993,26 +904,22 @@
 
     .security-circles {
         @apply h-[500px] md:h-[550px] lg:h-[600px] relative w-full md:w-1/2 pt-[80px] md:pt-0;
-        /* Минимальная высота для контейнера, чтобы кружки поместились */
     }
 
-    /* Стили для контейнера кружка */
     .circle-container {
         @apply relative inline-block;
         z-index: 2;
     }
 
-    /* Общие стили для кружков */
     .security-circle {
         @apply rounded-full p-4 transition-all duration-300 flex flex-col items-center justify-center;
-        /* Тень для объемного эффекта */
+
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        /* Позиционирование для псевдоэлемента */
+
         position: relative;
         z-index: 2;
     }
 
-    /* Разные размеры для кружков */
     .security-circle-large {
         @apply w-[180px] h-[180px];
         @apply md:w-[200px] md:h-[200px];
@@ -1025,7 +932,6 @@
         @apply lg:w-[200px] lg:h-[200px];
     }
 
-    /* Псевдо-элемент для создания постоянной границы с эффектом пульсации */
     .security-circle::before {
         content: '';
         @apply absolute rounded-full transition-all duration-500;
@@ -1037,16 +943,14 @@
         z-index: -1;
     }
 
-    /* Используем явные цвета вместо классов Tailwind для псевдоэлементов */
     .security-circle.bg-secondary::before {
-        background-color: #313a5a; /* Цвет secondary */
+        background-color: #313a5a;
     }
 
     .security-circle.bg-accent::before {
-        background-color: #00d467; /* Цвет accent */
+        background-color: #00d467;
     }
 
-    /* Эффект пульсации при наведении */
     @keyframes pulse-border {
         0% {
             transform: scale(1);
@@ -1062,24 +966,20 @@
         }
     }
 
-    /* Применяем анимацию при наведении */
     .circle-container:hover .security-circle::before {
         animation: pulse-border 1.5s infinite ease-in-out;
     }
 
-    /* Размер и стиль текста процентов */
     .circle-percentage {
         @apply font-medium leading-[98%] tracking-[-7%];
         @apply text-[32px] md:text-[36px] lg:text-[40px];
     }
 
-    /* Стиль для 24/7 */
     .circle-time {
         @apply font-medium  leading-[98%] tracking-[-7%];
         @apply text-[32px] md:text-[36px]  lg:text-[40px];
     }
 
-    /* Описание в кружке */
     .circle-description {
         @apply text-center leading-[98%] tracking-[-7%] mt-2 font-medium;
         @apply text-[12px] md:text-[14px] lg:text-[16px];
@@ -1090,12 +990,10 @@
             @apply bg-secondary text-white py-16;
         }
 
-        /* Верхняя часть футера */
         .footer-top {
-            @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 2xl:grid-cols-6 gap-8 mb-12;
+            @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-8 mb-12;
         }
 
-        /* Стили для контейнера логотипа */
         .footer-logo-container {
             @apply lg:col-span-1;
         }
@@ -1116,28 +1014,23 @@
             @apply lg:col-span-1;
         }
 
-        /* Заголовки в футере */
         .footer-heading {
             @apply text-primary text-[20px] font-medium mb-4 pb-2 relative;
         }
 
-        /* Зеленая плашка под заголовками - аналогично плашке в навигации */
         .footer-heading::after {
             content: '';
             @apply absolute bottom-0 left-0 w-full md:w-[120px] h-[4px] bg-accent;
         }
 
-        /* Списки в футере */
         .footer-list {
             @apply space-y-3;
         }
 
-        /* Ссылки в футере */
         .footer-link {
             @apply hover:text-accent transition-colors text-primary text-[20px] font-light leading-[100%] tracking-[0%];
         }
 
-        /* Блок с последними постами */
         .footer-posts {
             @apply mb-8;
         }
@@ -1174,19 +1067,21 @@
         }
 
         .footer-contact-item {
-            @apply flex items-start gap-2 font-light text-[18px];
+            @apply flex items-center gap-2 font-light text-[18px];
+        }
+
+        .footer-contact-icon {
+            @apply h-[20px] w-[20px] flex items-center justify-center;
         }
 
         .icon {
-            @apply h-[20px] w-[20px];
+            @apply min-h-[20px] min-w-[20px];
         }
 
-        /* Нижняя часть футера */
         .footer-bottom {
             @apply pt-8 flex flex-col md:flex-row justify-between items-center;
         }
 
-        /* Подписка на рассылку */
         .footer-subscribe {
             @apply mb-8 md:mb-0 w-full md:w-1/2;
         }
@@ -1210,7 +1105,7 @@
         .footer-subscribe-icon {
             @apply h-6 w-6;
         }
-        /* Социальные сети */
+
         .footer-social {
             @apply flex space-x-4;
         }
@@ -1219,14 +1114,12 @@
             @apply w-12 h-12 rounded-full border border-accent flex items-center justify-center hover:bg-primary transition-colors;
         }
 
-        /* Стили для меню навигации (для сравнения) */
         .nav-link-active::after {
             content: '';
             @apply absolute bottom-[-10px] left-0 w-full h-[2px] bg-accent;
             @apply md:bottom-[-15px];
         }
 
-        /* Стили для формы подписки, соответствующие скриншоту */
         .subscribe-form {
             @apply flex items-center;
         }
