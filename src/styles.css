@@ -530,7 +530,7 @@
     }
 
     .step-card {
-        @apply flex-grow bg-accent rounded-2xl p-6 text-white;
+        @apply flex-grow items-center bg-accent rounded-2xl p-6 text-white;
         min-height: 90px;
         transition: all 0.3s ease;
     }
@@ -548,11 +548,7 @@
     }
 
     .step-description {
-        @apply mt-4 text-[18px] text-primary leading-[115%] font-medium;
-    }
-
-    .step-description {
-        @apply mt-4 text-[18px] text-primary max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out;
+        @apply text-[18px] text-primary max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out leading-[115%] font-medium;
         transform: translateY(-10px);
     }
 
