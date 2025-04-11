@@ -482,15 +482,49 @@
         @apply w-2 h-32 bg-accent mr-4;
     }
 
-    /*<----->*/
+    /* Исправленные стили для карточек - исправлено наведение */
 
-    .step-container {
-        @apply flex items-start gap-5 mb-8;
+    .steps-grid {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-6 w-full mx-auto max-w-6xl relative;
+        margin-bottom: 20px;
+        align-items: start; /* Фиксирует проблему растягивания */
+    }
+
+    /* Мобильные стили: все карточки открыты изначально */
+    @media (max-width: 768px) {
+        .step-card {
+            min-height: 150px !important;
+        }
+
+        .step-description {
+            max-height: 500px !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            margin-top: 10px !important;
+            @apply text-[16px] text-white text-opacity-90 leading-relaxed font-normal;
+        }
+
+        .step-title-block {
+            margin-bottom: 10px !important;
+        }
+
+        .step-icon {
+            @apply opacity-80;
+        }
+
+        .step-card {
+            @apply p-4;
+        }
+
+        .step-container {
+            @apply mb-8;
+        }
     }
 
     .step-circle {
-        @apply relative w-[80px] h-[80px] flex items-center justify-center flex-shrink-0;
+        @apply relative w-[80px] h-[80px] flex items-center justify-center flex-shrink-0 mb-4;
         transition: all 0.3s ease;
+        z-index: 10;
     }
 
     .step-circle::before {
@@ -520,63 +554,145 @@
         transition: all 0.3s ease;
     }
 
+    .step-container:hover .step-circle-border {
+        @apply w-[90px] h-[90px] shadow-lg;
+    }
+
     .step-circle span {
         @apply text-white text-[28px] font-medium relative leading-[98%];
         z-index: 2;
     }
 
-    .step-container:hover .step-circle-border {
-        @apply bg-accent w-[90px] h-[90px];
+    .step-container:hover .step-circle span {
+        @apply scale-110;
+        transition: transform 0.3s ease;
     }
 
     .step-card {
-        @apply flex-grow items-center bg-accent rounded-2xl p-6 text-white;
-        min-height: 90px;
-        transition: all 0.3s ease;
+        @apply flex-grow flex flex-col bg-accent rounded-2xl p-5 text-white w-full shadow-md;
+        min-height: 100px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+            0 10px 20px -10px rgba(34, 197, 94, 0.4),
+            inset 0 -4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .step-container:hover .step-card {
+        @apply shadow-lg;
+        min-height: 180px;
+        box-shadow:
+            0 15px 30px -10px rgba(34, 197, 94, 0.5),
+            inset 0 -4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .step-card::before {
+        content: '';
+        @apply absolute top-0 right-0 w-24 h-24 bg-white bg-opacity-5 rounded-full;
+        transform: translate(50%, -50%);
     }
 
     .step-title-block {
-        @apply flex flex-row space-x-[12px] items-center w-full;
+        @apply flex flex-row justify-between items-center w-full;
+        margin-bottom: 0;
+        transition: margin-bottom 0.3s ease;
+    }
+
+    .step-container:hover .step-title-block {
+        margin-bottom: 8px;
     }
 
     .step-title {
-        @apply text-white text-[22px] md:text-[26px] font-medium;
+        @apply text-white text-[20px] md:text-[22px] font-medium;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .info-icon {
-        @apply w-6 h-6 opacity-[68%];
+    .step-icon {
+        @apply w-6 h-6 text-white opacity-70;
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+    }
+
+    .step-container:hover .step-icon {
+        @apply opacity-100;
+        transform: scale(1.1);
     }
 
     .step-description {
-        @apply text-[18px] text-primary max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out leading-[115%] font-medium;
+        @apply text-[16px] text-white text-opacity-90 max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out leading-relaxed font-normal;
         transform: translateY(-10px);
     }
 
     .step-container:hover .step-description {
-        @apply max-h-[100px] opacity-100;
+        @apply max-h-[150px] opacity-100;
         transform: translateY(0);
+        margin-top: 8px;
+    }
+
+    .step-card::after {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        left: 15px;
+        height: 3px;
+        width: 30px;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .step-container:hover .step-card::after {
+        width: 50px;
+        background-color: rgba(255, 255, 255, 0.4);
     }
 
     @media (max-width: 768px) {
-        .step-container {
-            @apply flex-col items-center text-center;
+        .steps-grid {
+            @apply grid-cols-1 gap-6;
         }
 
-        .step-circle {
-            @apply mb-4;
+        .step-container {
+            @apply mb-6;
         }
 
         .step-card {
-            @apply w-full;
+            min-height: 80px;
+        }
+
+        .step-container:hover .step-card,
+        .step-container.active .step-card {
+            min-height: 150px;
         }
 
         .step-title-block {
-            @apply justify-center;
+            @apply justify-between;
         }
 
-        .info-icon {
-            @apply ml-2;
+        .step-title {
+            @apply text-[18px];
         }
+
+        .step-container.active .step-description {
+            @apply max-h-[150px] opacity-100 mt-2;
+            transform: translateY(0);
+        }
+    }
+
+    .step-container.active .step-card {
+        min-height: 150px !important;
+        box-shadow: 0 15px 30px -10px rgba(34, 197, 94, 0.5);
+    }
+
+    .step-container.active .step-description {
+        max-height: 150px !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        margin-top: 8px !important;
+    }
+
+    .step-container.active .step-icon {
+        opacity: 1;
     }
 
     /*<----- Simplify section components ----->*/

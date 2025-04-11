@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         stopAutoplay()
         autoplayInterval = setInterval(() => {
             nextCard()
-        }, 5000)
+        }, 7500)
     }
 
     function stopAutoplay() {
@@ -482,54 +482,97 @@ function initWorkflowCarousel() {
 
 // <----- Get Sarted ----->
 
+// JavaScript для работы с компактными карточками
+d // Полностью переработанный JavaScript для управления состоянием карточек
 document.addEventListener('DOMContentLoaded', function () {
     const stepContainers = document.querySelectorAll('.step-container')
 
-    if (!stepContainers.length) return
-
+    // Убираем все :hover из CSS и заменяем их на класс 'hovered'
     stepContainers.forEach((container) => {
-        const infoIcon = container.querySelector('.info-icon')
-        const description = container.querySelector('.step-description')
+        // Обработчик наведения мыши (десктоп)
+        container.addEventListener('mouseenter', function () {
+            // Сначала убираем класс hovered со всех контейнеров
+            stepContainers.forEach((otherContainer) => {
+                otherContainer.classList.remove('hovered')
+            })
 
-        if (infoIcon && description) {
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-                infoIcon.addEventListener('click', function (e) {
-                    e.stopPropagation()
+            // Затем добавляем только текущему
+            container.classList.add('hovered')
+        })
 
-                    document
-                        .querySelectorAll('.step-description.active')
-                        .forEach((desc) => {
-                            if (desc !== description) {
-                                desc.classList.remove('active')
-                                desc.style.maxHeight = '0'
-                                desc.style.opacity = '0'
-                            }
-                        })
+        // Обработчик ухода мыши
+        container.addEventListener('mouseleave', function () {
+            container.classList.remove('hovered')
+        })
 
-                    description.classList.toggle('active')
+        // Обработка мобильных устройств
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            // Используем иконку для тапа
+            const icon = container.querySelector('.step-icon')
+            const card = container.querySelector('.step-card')
 
-                    if (description.classList.contains('active')) {
-                        description.style.maxHeight = '100px'
-                        description.style.opacity = '1'
-                        description.style.transform = 'translateY(0)'
-                    } else {
-                        description.style.maxHeight = '0'
-                        description.style.opacity = '0'
-                        description.style.transform = 'translateY(-10px)'
+            const toggleCard = function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                // Закрываем все другие карточки
+                stepContainers.forEach((otherContainer) => {
+                    if (otherContainer !== container) {
+                        otherContainer.classList.remove('active')
                     }
                 })
 
-                document.addEventListener('click', function (e) {
-                    if (!container.contains(e.target)) {
-                        description.classList.remove('active')
-                        description.style.maxHeight = '0'
-                        description.style.opacity = '0'
-                    }
-                })
+                // Переключаем активное состояние текущей карточки
+                container.classList.toggle('active')
+            }
+
+            // Добавляем обработчик на иконку
+            if (icon) {
+                icon.addEventListener('click', toggleCard)
+            }
+
+            // Добавляем обработчик на карточку
+            if (card) {
+                card.addEventListener('click', toggleCard)
             }
         }
     })
+
+    // Глобальный обработчик для закрытия карточек при клике вне
+    document.addEventListener('click', function (e) {
+        let clickedOutside = true
+
+        // Проверяем, был ли клик внутри какой-либо карточки
+        stepContainers.forEach((container) => {
+            if (container.contains(e.target)) {
+                clickedOutside = false
+            }
+        })
+
+        // Если клик был вне всех карточек, закрываем все
+        if (clickedOutside) {
+            stepContainers.forEach((container) => {
+                container.classList.remove('active')
+            })
+        }
+    })
+
+    // Анимация появления карточек при загрузке страницы
+    stepContainers.forEach((container, index) => {
+        container.style.opacity = '0'
+        container.style.transform = 'translateY(20px)'
+
+        setTimeout(
+            () => {
+                container.style.opacity = '1'
+                container.style.transform = 'translateY(0)'
+            },
+            100 * (index + 1)
+        )
+    })
 })
+
+// <----- Simplify ----->
 
 document.addEventListener('DOMContentLoaded', function () {
     const slider = document.querySelector('.simplify-slider')
