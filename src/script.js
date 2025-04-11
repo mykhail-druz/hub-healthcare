@@ -28,7 +28,6 @@ setInterval(() => {
     currentIndex = (currentIndex + 1) % texts.length
 }, 3000)
 
-// <----- Video carousel ------>
 document.addEventListener('DOMContentLoaded', function () {
     const cardsContainer = document.querySelector('.cards-container')
     if (!cardsContainer) return
@@ -39,12 +38,223 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevButton = document.querySelector('.cards-prev')
     const nextButton = document.querySelector('.cards-next')
 
+    // YouTube Shorts видео URLs
+    const videoUrls = [
+        'https://www.youtube.com/shorts/Cn-Py71sl3E',
+        'https://www.youtube.com/shorts/F6SZnQDHhfo',
+        'https://www.youtube.com/shorts/TkTsXOET3WA',
+        'https://www.youtube.com/shorts/WUDu9B2gfYo',
+        'https://www.youtube.com/shorts/Cn-Py71sl3E', // Повторяем первое видео для пятой карточки
+    ]
+
+    // Добавляем иконки плея и контейнеры для видео
+    cards.forEach((card, index) => {
+        // Добавляем иконку плеера
+        const playButton = document.createElement('div')
+        playButton.className = 'play-button'
+        playButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        `
+        card.querySelector('.card-content').appendChild(playButton)
+
+        // Создаем контейнер для видео
+        const videoContainer = document.createElement('div')
+        videoContainer.className = 'video-container'
+        videoContainer.innerHTML = `
+            <div class="close-video">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+            <div id="youtube-container-${index}" class="youtube-container"></div>
+        `
+        card.appendChild(videoContainer)
+
+        // Обработчик клика по карточке
+        card.addEventListener('click', function (e) {
+            // Проверяем, если клик был по кнопке закрытия
+            if (e.target.closest('.close-video')) {
+                closeVideo(card)
+                return
+            }
+
+            // Если открыто видео, то ничего не делаем
+            if (document.querySelector('.video-container.active')) {
+                return
+            }
+
+            // Проверяем, является ли эта карточка активной (первой в контейнере)
+            const isFirstCard = card === cardsContainer.firstElementChild
+
+            if (isFirstCard) {
+                // Открываем видео только на активной карточке
+                e.preventDefault()
+                e.stopPropagation()
+                openVideo(card, index)
+            }
+        })
+
+        // Обработчик клика для кнопки закрытия
+        const closeButton = videoContainer.querySelector('.close-video')
+        closeButton.addEventListener('click', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
+            closeVideo(card)
+        })
+    })
+
+    function openVideo(card, index) {
+        // Получаем YouTube ID из URL
+        const videoId = getYouTubeId(videoUrls[index])
+
+        if (!videoId) return
+
+        // Показываем видео контейнер
+        const videoContainer = card.querySelector('.video-container')
+        videoContainer.classList.add('active')
+
+        // Останавливаем автоматическое перелистывание
+        stopAutoplay()
+
+        // Создаем iframe для YouTube с отключенным интерфейсом
+        const youtubeContainer = card.querySelector(
+            `#youtube-container-${index}`
+        )
+        youtubeContainer.innerHTML = `
+            <iframe 
+                src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=0&showinfo=0&modestbranding=1" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        `
+    }
+
+    function closeVideo(card) {
+        const videoContainer = card.querySelector('.video-container')
+        if (videoContainer) {
+            videoContainer.classList.remove('active')
+
+            // Очищаем YouTube iframe, чтобы остановить видео
+            const youtubeContainer = videoContainer.querySelector(
+                '[id^="youtube-container-"]'
+            )
+            if (youtubeContainer) {
+                youtubeContainer.innerHTML = ''
+            }
+        }
+
+        // Возобновляем автоматическое перелистывание
+        startAutoplay()
+    }
+
+    // Функция для извлечения YouTube ID из URL
+    function getYouTubeId(url) {
+        // Для YouTube Shorts
+        if (url.includes('/shorts/')) {
+            const shortsId = url.split('/shorts/')[1].split('?')[0]
+            return shortsId
+        }
+
+        // Для стандартных YouTube URL
+        const regex =
+            /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+        const match = url.match(regex)
+        return match ? match[1] : null
+    }
+
+    // Функция для обновления видимости кнопок воспроизведения
+    function updatePlayButtons() {
+        // Получаем активную карточку
+        const activeCard = cardsContainer.firstElementChild
+
+        // Показываем кнопку воспроизведения только на активной карточке
+        cards.forEach((card) => {
+            const playButton = card.querySelector('.play-button')
+            if (card === activeCard) {
+                playButton.style.display = 'flex'
+            } else {
+                playButton.style.display = 'none'
+            }
+        })
+    }
+
+    // Вызываем функцию при загрузке
+    updatePlayButtons()
+
     const totalCards = cards.length
     let currentCard = 1
     let autoplayInterval
     let isAnimating = false
 
+    // Create carousel indicators
+    const indicatorsContainer = document.createElement('div')
+    indicatorsContainer.className = 'carousel-indicators'
+
+    for (let i = 1; i <= totalCards; i++) {
+        const dot = document.createElement('div')
+        dot.className = i === 1 ? 'indicator-dot active' : 'indicator-dot'
+        dot.dataset.index = i
+
+        // Add click event to indicators
+        dot.addEventListener('click', () => {
+            if (isAnimating) return
+
+            // Если открыто видео, закрываем его
+            closeAllVideos()
+
+            const targetIndex = parseInt(dot.dataset.index)
+            const currentIndex = currentCard
+
+            // Calculate the shortest path to the target slide
+            let diff = targetIndex - currentIndex
+
+            // Handle wrapping around
+            if (Math.abs(diff) > totalCards / 2) {
+                if (diff > 0) {
+                    diff = diff - totalCards
+                } else {
+                    diff = totalCards + diff
+                }
+            }
+
+            if (diff > 0) {
+                // Need to go forward
+                for (let j = 0; j < diff; j++) {
+                    setTimeout(() => nextCard(), j * 200)
+                }
+            } else if (diff < 0) {
+                // Need to go backward
+                for (let j = 0; j < Math.abs(diff); j++) {
+                    setTimeout(() => prevCard(), j * 200)
+                }
+            }
+        })
+
+        indicatorsContainer.appendChild(dot)
+    }
+
+    // Add indicators to the DOM
+    cardsContainer.parentNode.insertBefore(
+        indicatorsContainer,
+        cardsContainer.nextSibling
+    )
+
+    function closeAllVideos() {
+        const activeVideos = document.querySelectorAll(
+            '.video-container.active'
+        )
+        activeVideos.forEach((container) => {
+            const card = container.closest('.card-item')
+            closeVideo(card)
+        })
+    }
+
     function updateActiveElements() {
+        // Update stats groups
         statGroups.forEach((group) => {
             if (parseInt(group.dataset.card) === currentCard) {
                 group.classList.add('active')
@@ -53,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
 
+        // Update quotes
         quoteItems.forEach((quote) => {
             if (parseInt(quote.dataset.card) === currentCard) {
                 quote.classList.add('active')
@@ -60,11 +271,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 quote.classList.remove('active')
             }
         })
+
+        // Update indicator dots
+        const dots = document.querySelectorAll('.indicator-dot')
+        dots.forEach((dot) => {
+            if (parseInt(dot.dataset.index) === currentCard) {
+                dot.classList.add('active')
+            } else {
+                dot.classList.remove('active')
+            }
+        })
+
+        // Обновляем кнопки воспроизведения
+        updatePlayButtons()
     }
 
     function nextCard() {
         if (isAnimating) return
+
+        // Закрываем все открытые видео перед переключением
+        closeAllVideos()
+
         isAnimating = true
+
+        // Add transition class to all cards for smooth animation
+        cards.forEach((card) => card.classList.add('slide-transition'))
 
         const firstCard = cardsContainer.firstElementChild
         cardsContainer.appendChild(firstCard)
@@ -75,12 +306,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(() => {
             isAnimating = false
+            // Remove transition class after animation completes
+            cards.forEach((card) => card.classList.remove('slide-transition'))
+            // Обновляем видимость кнопок воспроизведения
+            updatePlayButtons()
         }, 500)
     }
 
     function prevCard() {
         if (isAnimating) return
+
+        // Закрываем все открытые видео перед переключением
+        closeAllVideos()
+
         isAnimating = true
+
+        // Add transition class to all cards for smooth animation
+        cards.forEach((card) => card.classList.add('slide-transition'))
 
         const lastCard = cardsContainer.lastElementChild
         cardsContainer.insertBefore(lastCard, cardsContainer.firstElementChild)
@@ -91,11 +333,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(() => {
             isAnimating = false
+            // Remove transition class after animation completes
+            cards.forEach((card) => card.classList.remove('slide-transition'))
+            // Обновляем видимость кнопок воспроизведения
+            updatePlayButtons()
         }, 500)
     }
 
     function startAutoplay() {
         stopAutoplay()
+
+        // Проверяем, открыто ли видео
+        if (document.querySelector('.video-container.active')) {
+            return
+        }
+
         autoplayInterval = setInterval(() => {
             nextCard()
         }, 7500)
@@ -107,11 +359,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Add hover animations to the navigation buttons
     if (prevButton) {
         prevButton.addEventListener('click', () => {
             prevCard()
             stopAutoplay()
             startAutoplay()
+        })
+
+        prevButton.addEventListener('mouseenter', () => {
+            if (prevButton.querySelector('svg')) {
+                prevButton.querySelector('svg').style.transform =
+                    'translateX(-2px)'
+                prevButton.querySelector('svg').style.transition =
+                    'transform 0.3s'
+            }
+        })
+
+        prevButton.addEventListener('mouseleave', () => {
+            if (prevButton.querySelector('svg')) {
+                prevButton.querySelector('svg').style.transform =
+                    'translateX(0)'
+            }
         })
     }
 
@@ -120,6 +389,22 @@ document.addEventListener('DOMContentLoaded', function () {
             nextCard()
             stopAutoplay()
             startAutoplay()
+        })
+
+        nextButton.addEventListener('mouseenter', () => {
+            if (nextButton.querySelector('svg')) {
+                nextButton.querySelector('svg').style.transform =
+                    'translateX(2px)'
+                nextButton.querySelector('svg').style.transition =
+                    'transform 0.3s'
+            }
+        })
+
+        nextButton.addEventListener('mouseleave', () => {
+            if (nextButton.querySelector('svg')) {
+                nextButton.querySelector('svg').style.transform =
+                    'translateX(0)'
+            }
         })
     }
 
@@ -148,12 +433,17 @@ document.addEventListener('DOMContentLoaded', function () {
         (e) => {
             touchEndX = e.changedTouches[0].screenX
 
+            // Если открыто видео, не делаем свайп
+            if (document.querySelector('.video-container.active')) {
+                return
+            }
+
             const swipeThreshold = 50
             if (touchEndX < touchStartX - swipeThreshold) {
-                // Свайп влево - следующая карточка
+                // Swipe left - next card
                 nextCard()
             } else if (touchEndX > touchStartX + swipeThreshold) {
-                // Свайп вправо - предыдущая карточка
+                // Swipe right - previous card
                 prevCard()
             }
 
@@ -161,6 +451,30 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         { passive: true }
     )
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+        // Если открыто видео и нажата клавиша Escape, закрываем видео
+        if (e.key === 'Escape') {
+            closeAllVideos()
+            return
+        }
+
+        // Если открыто видео, не обрабатываем стрелки
+        if (document.querySelector('.video-container.active')) {
+            return
+        }
+
+        if (e.key === 'ArrowRight') {
+            nextCard()
+            stopAutoplay()
+            startAutoplay()
+        } else if (e.key === 'ArrowLeft') {
+            prevCard()
+            stopAutoplay()
+            startAutoplay()
+        }
+    })
 
     startAutoplay()
 })
@@ -482,32 +796,23 @@ function initWorkflowCarousel() {
 
 // <----- Get Sarted ----->
 
-// JavaScript для работы с компактными карточками
-d // Полностью переработанный JavaScript для управления состоянием карточек
 document.addEventListener('DOMContentLoaded', function () {
     const stepContainers = document.querySelectorAll('.step-container')
 
-    // Убираем все :hover из CSS и заменяем их на класс 'hovered'
     stepContainers.forEach((container) => {
-        // Обработчик наведения мыши (десктоп)
         container.addEventListener('mouseenter', function () {
-            // Сначала убираем класс hovered со всех контейнеров
             stepContainers.forEach((otherContainer) => {
                 otherContainer.classList.remove('hovered')
             })
 
-            // Затем добавляем только текущему
             container.classList.add('hovered')
         })
 
-        // Обработчик ухода мыши
         container.addEventListener('mouseleave', function () {
             container.classList.remove('hovered')
         })
 
-        // Обработка мобильных устройств
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-            // Используем иконку для тапа
             const icon = container.querySelector('.step-icon')
             const card = container.querySelector('.step-card')
 
@@ -515,41 +820,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.preventDefault()
                 e.stopPropagation()
 
-                // Закрываем все другие карточки
                 stepContainers.forEach((otherContainer) => {
                     if (otherContainer !== container) {
                         otherContainer.classList.remove('active')
                     }
                 })
 
-                // Переключаем активное состояние текущей карточки
                 container.classList.toggle('active')
             }
 
-            // Добавляем обработчик на иконку
             if (icon) {
                 icon.addEventListener('click', toggleCard)
             }
 
-            // Добавляем обработчик на карточку
             if (card) {
                 card.addEventListener('click', toggleCard)
             }
         }
     })
 
-    // Глобальный обработчик для закрытия карточек при клике вне
     document.addEventListener('click', function (e) {
         let clickedOutside = true
 
-        // Проверяем, был ли клик внутри какой-либо карточки
         stepContainers.forEach((container) => {
             if (container.contains(e.target)) {
                 clickedOutside = false
             }
         })
 
-        // Если клик был вне всех карточек, закрываем все
         if (clickedOutside) {
             stepContainers.forEach((container) => {
                 container.classList.remove('active')
@@ -557,7 +855,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    // Анимация появления карточек при загрузке страницы
     stepContainers.forEach((container, index) => {
         container.style.opacity = '0'
         container.style.transform = 'translateY(20px)'
@@ -663,7 +960,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createOrbitalSystem() {
-        // Очищаем предыдущие элементы
         while (orbitalSystem.firstChild) {
             orbitalSystem.removeChild(orbitalSystem.firstChild)
         }
@@ -681,12 +977,10 @@ document.addEventListener('DOMContentLoaded', function () {
         connectionsContainer.className = 'connections-container'
         orbitalSystem.appendChild(connectionsContainer)
 
-        // Добавляем иконки на орбиту
         goodIcons.forEach((icon, index) => {
             const parent = icon.closest('div')
             const iconClone = icon.cloneNode(true)
 
-            // Создаем контейнер для иконки
             const iconContainer = document.createElement('div')
             iconContainer.className = 'orbital-icon-container'
 
