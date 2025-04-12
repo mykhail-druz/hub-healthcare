@@ -937,6 +937,9 @@ document.addEventListener('DOMContentLoaded', function () {
         connectionsContainer.className = 'connections-container'
         orbitalSystem.appendChild(connectionsContainer)
 
+        const isMobile = window.innerWidth <= 767
+        const translateXValue = isMobile ? 150 : 180
+
         goodIcons.forEach((icon, index) => {
             const parent = icon.closest('div')
             const iconClone = icon.cloneNode(true)
@@ -951,7 +954,7 @@ document.addEventListener('DOMContentLoaded', function () {
             iconContainer.appendChild(iconClone)
 
             const angle = (360 / goodIcons.length) * index
-            iconContainer.style.transform = `rotate(${angle}deg) translateX(180px) rotate(-${angle}deg)`
+            iconContainer.style.transform = `rotate(${angle}deg) translateX(${translateXValue}px) rotate(-${angle}deg)`
 
             setTimeout(() => {
                 orbit.appendChild(iconContainer)
