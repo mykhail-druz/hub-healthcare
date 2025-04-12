@@ -394,7 +394,6 @@
 
     .youtube-container iframe {
         @apply w-full h-full rounded-lg;
-        pointer-events: none;
     }
 
     .close-video {
