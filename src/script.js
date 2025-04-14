@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // YouTube Shorts видео URLs
     const videoUrls = [
         'https://www.youtube.com/shorts/Cn-Py71sl3E',
-        'https://www.youtube.com/shorts/F6SZnQDHhfo',
         'https://www.youtube.com/shorts/TkTsXOET3WA',
         'https://www.youtube.com/shorts/WUDu9B2gfYo',
+        'https://www.youtube.com/shorts/F6SZnQDHhfo',
         'https://www.youtube.com/shorts/Cn-Py71sl3E',
     ]
 
@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getYouTubeId(url) {
-        // Для YouTube Shorts
         if (url.includes('/shorts/')) {
             const shortsId = url.split('/shorts/')[1].split('?')[0]
             return shortsId
@@ -492,7 +491,7 @@ const workflowSlides = [
         quote: {
             text: "Now our teams are finally aligned on who does what, when, and how. It's made complex care coordination actually manageable.",
             author: 'Medical Director of Care Optimization',
-            avatar: 'images/avatars/avatar-3.png',
+            avatar: 'images/avatars/avatar-4.png',
         },
         metrics: [
             {
