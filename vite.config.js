@@ -5,7 +5,7 @@ import { resolve } from 'path'
 export default defineConfig({
     root: 'src',
     publicDir: '../public',
-    base: '/wp-content/uploads/dist/',
+    base: '/',
     build: {
         outDir: '../dist',
         emptyOutDir: true,
